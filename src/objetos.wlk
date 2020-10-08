@@ -10,8 +10,8 @@ object cabezaSnake {
 	method moverseA(nuevaPosicion) {position = nuevaPosicion}
 }
 
-/*object cuerpoSnake {
-	method posicion() = cabezaSnake.position().left(1)
+/*class CuerpoSnake {
+	/*****************method posicion() = cabezaSnake.position().left(1)
 	method choqueConSnake() { 
 		game.say(game.center(),"GAME OVER")
 		game.schedule(5000, {game.stop()})
