@@ -13,7 +13,10 @@ object cabezaSnake {
 
 /*object cuerpoSnake {
 
-	method choqueConSnake() { game.schedule(5000, {game.stop()}) }
+	method choqueConSnake() { 
+		game.say(game.center(),"GAME OVER")
+		game.schedule(5000, {game.stop()})
+	}
 }
 
 
@@ -30,6 +33,7 @@ object frutilla {
 		if(choques < 5){
 			movimiento.nuevaPosicion()
 		}else {
+			game.say(game.center(),"GAME OVER")
 			game.schedule(5000, {game.stop()})
 		}
 			
@@ -38,5 +42,8 @@ object frutilla {
 
 object pared {
 	method image() = "muro.png"
-	method choqueConSnake() {}
+	method choqueConSnake() {
+		game.say(game.center(),"GAME OVER")
+		game.schedule(5000, {game.stop()})
+	}
 }
