@@ -1,9 +1,9 @@
 import wollok.game.*
 import movimientos.*
 
-object snake {
+object cabezaSnake {
 	var position =  game.at(2, 2)
-	//var imagen = "snake.png"
+	//var imagen = "cabeza.png"
 	
 	method position() = position
 	//method image() = imagen
@@ -11,15 +11,27 @@ object snake {
 	method moverseA(nuevaPosicion) {position = nuevaPosicion}
 }
 
-class Fruta {
+//object cuerpoSnake {}
+
+object frutilla {
 	var movimiento = aleatorio
+	var choques = 0
 	
 	method position() = movimiento.posicion()
-	//method image() = "fruta.png"
+	method image() = "frutilla.png"
 	
-	method comidoPorSnake() {movimiento = comido}
+	method choqueConSnake() {
+		choques += 1
+		if(choques < 5){
+			movimiento.nuevaPosicion()
+		}else {
+			game.schedule(5000, {game.stop()})
+		}
+			
+	}
 }
 
 object pared {
-	
+	method image() = "muro.png"
+	method choqueConSnake() {}
 }
