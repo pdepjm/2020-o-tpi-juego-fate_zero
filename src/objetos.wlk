@@ -11,8 +11,13 @@ object cabezaSnake {
 	method moverseA(nuevaPosicion) {position = nuevaPosicion}
 }
 
-//object cuerpoSnake {}
+/*object cuerpoSnake {
 
+	method choqueConSnake() { game.schedule(5000, {game.stop()}) }
+}
+
+
+*/
 object frutilla {
 	var movimiento = aleatorio
 	var choques = 0
