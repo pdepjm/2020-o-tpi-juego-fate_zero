@@ -52,3 +52,5 @@ object pared {
 		game.schedule(5000, {game.stop()})
 	}
 }
+
+// class muro
