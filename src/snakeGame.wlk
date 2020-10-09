@@ -1,5 +1,6 @@
 import wollok.game.*
 import objetos.*
+import direcciones.*
 
 object snakeGame {
 	method iniciar() {
@@ -12,25 +13,29 @@ object snakeGame {
 	
 	method configurarJuego() {
 		game.title("Snake Game")
-		game.width(17)
-		game.height(11)
-		game.boardGround("fondo_arena.jpg")
+		game.width(16)
+		game.height(10)
 	}
 	
 	method agregarPersonajes() {
 		game.addVisual(cabezaSnake)
 		//game.addVisual(cuerpoSnake)
-		game.addVisual(frutilla)
+		game.addVisual(fruta)
 	}
 	
 	method configurarTeclas() {
-		keyboard.up().onPressDo({cabezaSnake.moverseA(cabezaSnake.position().up(1))})
-		keyboard.down().onPressDo({cabezaSnake.moverseA(cabezaSnake.position().down(1))})
-		keyboard.left().onPressDo({cabezaSnake.moverseA(cabezaSnake.position().left(1))})
-		keyboard.right().onPressDo({cabezaSnake.moverseA(cabezaSnake.position().right(1))})
+		keyboard.up().onPressDo({cabezaSnake.moverseA(direccArriba)})
+		keyboard.down().onPressDo({cabezaSnake.moverseA(direccAbajo)})
+		keyboard.left().onPressDo({cabezaSnake.moverseA(direccIzquierda)})
+		keyboard.right().onPressDo({cabezaSnake.moverseA(direccDerecha)})
 	}
 	
 	method configurarAcciones() {
-		game.onCollideDo(cabezaSnake, { visualColisionado => visualColisionado.choqueConSnake()})
+		game.onCollideDo(cabezaSnake, {visualColisionado => visualColisionado.choqueConSnake()})
+	}
+	
+	method over() {
+		game.addVisual(gameOver)
+		game.schedule(5000, {game.stop()})
 	}
 }

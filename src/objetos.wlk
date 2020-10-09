@@ -1,30 +1,34 @@
 import wollok.game.*
+import snakeGame.*
+import direcciones.*
 
 object cabezaSnake {
 	var position =  game.at(2, 2)
-	//var imagen = "cabeza.png"
+	var imagen = "manzana.png"
 	
 	method position() = position
-	//method image() = imagen
+	method image() = imagen
 	
-	method moverseA(nuevaPosicion) {position = nuevaPosicion}
+	method moverseA(unaDireccion) {
+		position = self.direccionarHacia(unaDireccion)
+	}
+	method direccionarHacia(unaDireccion) = game.onTick(200, "movimientoSnake", { => unaDireccion.siguientePosicion() })
 }
+
 
 /*class CuerpoSnake {
-	/*****************method posicion() = cabezaSnake.position().left(1)
+	method position() = cabezaSnake.position().left(1)
 	method choqueConSnake() { 
-		game.say(game.center(),"GAME OVER")
-		game.schedule(5000, {game.stop()})
+		game.over()
 	}
 }
-
-
 */
-object frutilla {
+
+object fruta {
 	var posicion = game.at(8, 8)
 	var choques = 0
 
-	method posicion() = posicion
+	method position() = posicion
 	method image() = "frutilla.png"
 
 	method nuevaPosicion() {
@@ -35,22 +39,25 @@ object frutilla {
 	
 	method choqueConSnake() {
 		choques += 1
-		if(choques < 5){
+		if(choques < 3){
 			self.nuevaPosicion()
 		}else {
-			game.say(game.center(),"GAME OVER")
-			game.schedule(5000, {game.stop()})
+			game.removeVisual(self)
+			snakeGame.over()
 		}
 			
 	}
 }
 
-object pared {
+/*class Ladrillo {
 	method image() = "muro.png"
 	method choqueConSnake() {
-		game.say(game.center(),"GAME OVER")
-		game.schedule(5000, {game.stop()})
+		snakeGame.over()
 	}
-}
+}*/
 
-// class muro
+object gameOver {
+	method position() = game.at(3,1)
+	method image() = "game_over.png"
+	method choqueConSnake() {}
+}
