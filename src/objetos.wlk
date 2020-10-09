@@ -4,7 +4,7 @@ import direcciones.*
 
 object cabezaSnake {
 	var position =  game.at(2, 2)
-	var imagen = "manzana.png"
+	var imagen = "jugador.png"
 	
 	method position() = position
 	method image() = imagen
@@ -29,7 +29,7 @@ object fruta {
 	var choques = 0
 
 	method position() = posicion
-	method image() = "frutilla.png"
+	method image() = "manzana.png"
 
 	method nuevaPosicion() {
 		const x = 0.randomUpTo(game.width()-1).truncate(0)
