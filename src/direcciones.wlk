@@ -1,17 +1,17 @@
 import objetos.*
 
-object direccArriba {
+object arriba {
 	method siguientePosicion() {cabezaSnake.position().up(1)}
 }
 
-object direccAbajo {
+object abajo {
 	method siguientePosicion() {cabezaSnake.position().down(1)}
 }
 
-object direccDerecha {
-	method siguientePosicion() {cabezaSnake.position().right(1)}
+object izquierda {
+	method siguientePosicion() {cabezaSnake.position().left(1)}
 }
 
-object direccIzquierda {
-	method siguientePosicion() {cabezaSnake.position().left(1)}
+object derecha {
+	method siguientePosicion() {cabezaSnake.position().right(1)}
 }

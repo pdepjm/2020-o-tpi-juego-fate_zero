@@ -3,23 +3,27 @@ import snakeGame.*
 import direcciones.*
 
 object cabezaSnake {
-	var position =  game.at(2, 2)
+	var position = game.at(2, 2)
 	var imagen = "jugador.png"
+	var direccion = derecha
 	
 	method position() = position
 	method image() = imagen
 	
-	method moverseA(unaDireccion) {
-		position = self.direccionarHacia(unaDireccion)
-	}
-	method direccionarHacia(unaDireccion) = game.onTick(200, "movimientoSnake", { => unaDireccion.siguientePosicion() })
+	method moverseA(nuevaPosicion) {position = nuevaPosicion}
+	method direccionElegida(unaDireccion) {direccion = unaDireccion}
+	method nuevaDireccionParaAvanzar() = direccion.siguientePosicion()
+	
+	method comienzaAMoverse() {
+		game.onTick(200, "movimiento Snake", { self.moverseA(self.nuevaDireccionParaAvanzar()) })
+	} 
 }
 
 
 /*class CuerpoSnake {
 	method position() = cabezaSnake.position().left(1)
 	method choqueConSnake() { 
-		game.over()
+		snakeGame.over()
 	}
 }
 */

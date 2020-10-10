@@ -9,6 +9,7 @@ object snakeGame {
 		self.configurarTeclas()
 		self.configurarAcciones()
 		game.start()
+		cabezaSnake.comienzaAMoverse()
 	}
 	
 	method configurarJuego() {
@@ -24,14 +25,15 @@ object snakeGame {
 	}
 	
 	method configurarTeclas() {
-		keyboard.up().onPressDo({cabezaSnake.moverseA(direccArriba)})
-		keyboard.down().onPressDo({cabezaSnake.moverseA(direccAbajo)})
-		keyboard.left().onPressDo({cabezaSnake.moverseA(direccIzquierda)})
-		keyboard.right().onPressDo({cabezaSnake.moverseA(direccDerecha)})
+		keyboard.up().onPressDo({cabezaSnake.direccionElegida(arriba)})
+		keyboard.down().onPressDo({cabezaSnake.direccionElegida(abajo)})
+		keyboard.left().onPressDo({cabezaSnake.direccionElegida(izquierda)})
+		keyboard.right().onPressDo({cabezaSnake.direccionElegida(derecha)})
 	}
 	
 	method configurarAcciones() {
 		game.onCollideDo(cabezaSnake, {visualColisionado => visualColisionado.choqueConSnake()})
+		
 	}
 	
 	method over() {
