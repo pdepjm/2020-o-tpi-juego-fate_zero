@@ -8,8 +8,10 @@ object snakeGame {
 		self.agregarPersonajes()
 		self.configurarTeclas()
 		self.configurarAcciones()
-		game.start()
 		cabezaSnake.comienzaAMoverse()
+		game.start()
+		
+	
 	}
 	
 	method configurarJuego() {

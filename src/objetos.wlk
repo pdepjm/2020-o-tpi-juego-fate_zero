@@ -3,19 +3,21 @@ import snakeGame.*
 import direcciones.*
 
 object cabezaSnake {
-	var position = game.at(2, 2)
+	var position = game.at(2, 3)
 	var imagen = "jugador.png"
-	var direccion = derecha
+	var direccion = arriba
 	
 	method position() = position
 	method image() = imagen
 	
 	method moverseA(nuevaPosicion) {position = nuevaPosicion}
+	
 	method direccionElegida(unaDireccion) {direccion = unaDireccion}
+	
 	method nuevaDireccionParaAvanzar() = direccion.siguientePosicion()
 	
 	method comienzaAMoverse() {
-		game.onTick(200, "movimiento Snake", { self.moverseA(self.nuevaDireccionParaAvanzar()) })
+		game.onTick(500, "movimiento Snake", { self.moverseA( self.nuevaDireccionParaAvanzar() ) })
 	} 
 }
 
