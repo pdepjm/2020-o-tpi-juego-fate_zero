@@ -16,8 +16,9 @@ object snakeGame {
 	
 	method configurarJuego() {
 		game.title("Snake Game")
-		game.width(16)
-		game.height(10)
+		game.width(30)
+		game.height(18)
+		game.cellSize(35)
 	}
 	
 	method agregarPersonajes() {
@@ -35,7 +36,7 @@ object snakeGame {
 	
 	method configurarAcciones() {
 		game.onCollideDo(cabezaSnake, {visualColisionado => visualColisionado.choqueConSnake()})
-		
+		//game.whenCollideDo(cabezaSnake, {visualColisionado => visualColisionado.choqueConSnake()})
 	}
 	
 	method over() {
