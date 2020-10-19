@@ -8,6 +8,7 @@ class muro{
 	
 	method choqueConSnake() {
 		snakeGame.over()
+		
 		}
 }
 

@@ -24,7 +24,7 @@ object snakeGame {
 	
 	method agregarPersonajes() {
 		game.addVisual(cabezaSnake)
-		//game.addVisual(cuerpoSnake)
+		
 		game.addVisual(fruta)
 		
 		
