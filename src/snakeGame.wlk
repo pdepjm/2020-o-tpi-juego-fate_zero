@@ -1,6 +1,7 @@
 import wollok.game.*
 import objetos.*
 import direcciones.*
+import muro.*
 
 object snakeGame {
 	method iniciar() {
@@ -25,6 +26,10 @@ object snakeGame {
 		game.addVisual(cabezaSnake)
 		//game.addVisual(cuerpoSnake)
 		game.addVisual(fruta)
+		
+		
+		nivel.generarBordes()
+		
 	}
 	
 	method configurarTeclas() {

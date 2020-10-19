@@ -53,12 +53,7 @@ object fruta {
 	}
 }
 
-/*class Ladrillo {
-	method image() = "muro.png"
-	method choqueConSnake() {
-		snakeGame.over()
-	}
-}*/
+
 
 object gameOver {
 	method position() = game.at(7,1)
