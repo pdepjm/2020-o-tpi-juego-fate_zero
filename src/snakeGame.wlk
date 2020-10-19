@@ -11,8 +11,6 @@ object snakeGame {
 		self.configurarAcciones()
 		cabezaSnake.comienzaAMoverse()
 		game.start()
-		
-	
 	}
 	
 	method configurarJuego() {
@@ -24,12 +22,9 @@ object snakeGame {
 	
 	method agregarPersonajes() {
 		game.addVisual(cabezaSnake)
-		
 		game.addVisual(fruta)
 		
-		
 		nivel.generarBordes()
-		
 	}
 	
 	method configurarTeclas() {
