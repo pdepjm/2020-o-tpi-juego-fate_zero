@@ -2,6 +2,7 @@ import wollok.game.*
 import objetos.*
 import direcciones.*
 import muro.*
+import serpiente.*
 
 object snakeGame {
 	method iniciar() {
@@ -24,8 +25,9 @@ object snakeGame {
 		game.addVisual(cabezaSnake)
 		game.addVisual(fruta)
 		
-		nivel.generarBordes()
-	}
+		nivel0.iniciar()
+		
+		}
 	
 	method configurarTeclas() {
 		keyboard.up().onPressDo({cabezaSnake.direccionElegida(arriba)})

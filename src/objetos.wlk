@@ -3,6 +3,7 @@ import snakeGame.*
 import direcciones.*
 import posicionAleatoria.*
 import serpiente.*
+import muro.*
 
 object fruta {
 	var posicion = game.at(8, 8)
@@ -21,12 +22,12 @@ object fruta {
 			game.removeVisual(self)
 			aleatoria.nuevaPosicion(hoyo)
 			game.addVisual(hoyo)
-			snakeGame.over()
+			
+			/*snakeGame.over()*/
+			nivel1.iniciar()
 		}
 		
-		cabezaSnake.agregarCuerpo() // agrego el cuerpo
-		
-		
+
 	}
 }
 

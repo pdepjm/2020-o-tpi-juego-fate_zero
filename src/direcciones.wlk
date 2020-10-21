@@ -1,4 +1,5 @@
 import objetos.*
+import serpiente.*
 
 object arriba {
 	method siguientePosicion() = cabezaSnake.position().up(1)
