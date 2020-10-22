@@ -11,7 +11,7 @@ class CuerpoSnake {
 	var property position
 	var property posicionPrevia
 	
-	method moverseA(nuevaPosicion) {
+	method desplazarseA(nuevaPosicion) {
 		posicionPrevia = position
 		position = nuevaPosicion
 		if(siguiente != null){
@@ -19,16 +19,21 @@ class CuerpoSnake {
 		}
 	}
 	
-	method desaparecer() {
-		game.removeVisual(self)
+	method moverseA(nuevaPosicion) {
+		self.desplazarseA(nuevaPosicion)
+		serpiente.direccion().cuerpoSegunDirecc(self)
 	}
+	
+	method cambiarImagen(unaImagen) { image= unaImagen }
+	
+	method desaparecer() { game.removeVisual(self) }
+	
 }
 
 object cabezaSnake inherits CuerpoSnake(anterior = null, siguiente = null, image = "cabeza-derecha.png", position = game.at(2,2), posicionPrevia = game.at(2,1)) {
-	method cambiarImagen(unaImagen) { self.image(unaImagen) }
 	override method moverseA(nuevaPosicion) {
-		super(nuevaPosicion)
-		serpiente.direccion().imagenSegunDirecc()
+		self.desplazarseA(nuevaPosicion)
+		serpiente.direccion().cabezaSegunDirecc()
 	}
 }
 

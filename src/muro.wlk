@@ -24,78 +24,59 @@ class Nivel {
 	
 	var posCasillasLaterales = []
 	var posCasillasCentrales = []
-method generarBordes() {
+	
+	method generarBordes() {
+		(0 .. ancho-1).forEach{ i => posCasillasCentrales.add(new Position(x=i, y=0)) } // borde abajo
+		(0 .. ancho-1).forEach{ i => posCasillasCentrales.add(new Position(x=i, y=alto-1)) } // borde arriba
 		
+		(1 .. alto-2).forEach{ i => posCasillasLaterales.add(new Position(x=0, y=i)) } // borde izquierdo
+		(1 .. alto-2).forEach{ i => posCasillasLaterales.add(new Position(x=ancho-1, y=i)) } // borde derecho
 		
-			(0 .. ancho-1).forEach{ i => posCasillasCentrales.add(new Position(x=i, y=0)) } // borde abajo
-			(0 .. ancho-1).forEach{ i => posCasillasCentrales.add(new Position(x=i, y=alto-1)) } // borde arriba
-			
-			(1 .. alto-2).forEach{ i => posCasillasLaterales.add(new Position(x=0, y=i)) } // borde izquierdo
-			(1 .. alto-2).forEach{ i => posCasillasLaterales.add(new Position(x=ancho-1, y=i)) } // borde derecho
-			
-			self.generarEjeX();
-			self.generarEjeY();
-			
-			
-		}
+		self.generarEjeX();
+		self.generarEjeY();
+	}
+	
 	method generarEjeY(){
-			posCasillasLaterales.forEach { posicion => 
-				var casilla = new Muro(position = posicion)
-				game.addVisual(casilla)
-				bordeLateral.add(casilla)	
-			}
+		posCasillasLaterales.forEach { posicion => 
+			var casilla = new Muro(position = posicion)
+			game.addVisual(casilla)
+			bordeLateral.add(casilla)	
+		}
 			
+	}
+	
+	method generarEjeX(){
+		posCasillasCentrales.forEach { posicion => 
+			var casilla = new Muro(position = posicion)
+			game.addVisual(casilla)
+			bordeCentral.add(casilla)	
 		}
-		method generarEjeX(){
-			posCasillasCentrales.forEach { posicion => 
-				var casilla = new Muro(position = posicion)
-				game.addVisual(casilla)
-				bordeCentral.add(casilla)	
-			}
-		}
+	}
+	
 	method iniciar() {
-		
-			self.generarBordes();
-			self.generarEjeX();
-			self.generarEjeY();
-			
-			
-		}
+		self.generarBordes()
+		self.generarEjeX()
+		self.generarEjeY()
+	}
 		
 }
+
+
+
 // al nivel 0 lo instancie cuando carga el juego
 object nivel1 inherits Nivel {
 	
-override method iniciar() {
+	override method iniciar() {
 		self.agregandoMuros()
-		super()
-			
-		}
+		super()	
+	}
 	
 	method agregandoMuros() {
-			(5 .. ancho-5).forEach{ i => posCasillasCentrales.add(new Position(x=i, y=3)) } // borde abajo
-			(5 .. ancho-5).forEach{ i => posCasillasCentrales.add(new Position(x=i, y=alto-5)) } // borde arriba
-				
-		}
+		(5 .. ancho-5).forEach{ i => posCasillasCentrales.add(new Position(x=i, y=3)) } // borde abajo
+		(5 .. ancho-5).forEach{ i => posCasillasCentrales.add(new Position(x=i, y=alto-5)) } // borde arriba
+			
+	}
 		
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

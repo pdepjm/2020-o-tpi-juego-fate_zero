@@ -46,13 +46,13 @@ object hoyo {
 	method image() = "hoyo.png"
 	
 	method posicionAleatoria() {
-		const x = 0.randomUpTo(game.width()-1).truncate(0)
-		const y = 0.randomUpTo(game.height()-1).truncate(0)
+		const x = 1.randomUpTo(game.width()-1).truncate(0)
+		const y = 1.randomUpTo(game.height()-1).truncate(0)
 		posicion = game.at(x, y)
 	}
 	
 	method choqueConSnake() { // PASAR DE NIVEL
-		//serpiente.cuerpo().apply({unaParte => unaParte.desaparecer()})
+		//serpiente.cuerpo().forEach({unaParte => unaParte.desaparecer()})
 		nivel1.iniciar()
 		game.removeVisual(self)
 		game.addVisual(fruta)
