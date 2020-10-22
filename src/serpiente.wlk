@@ -3,142 +3,67 @@ import objetos.*
 import snakeGame.*
 import direcciones.*
 import muro.*
-import posicionAleatoria.*
 
-object cabezaSnake  {
-	var position = game.at(2,2)
-	var imagen = "cabeza-derecha.png"
-	var direccion = derecha
-	var cuerpo = []
-	
-	method position() = position
-	method image() = imagen
-	
-	method moverseA(nuevaPosicion) {
-		position = nuevaPosicion
-		//cuerpo.apply({parteCuerpo => parteCuerpo.mover()})
-	}
-	
-	/*method agregarCuerpo(){
-		var parte = new CuerpoSnake(position = ultimo.position().left(1))
-		cuerpo.add(parte)
-		game.addVisual(parte)
-		ultimo = parte
-	}*/
-	
-									
-	method cambiarImagen(unaImagen) {
-		imagen = unaImagen
-	}
-	
-	method direccionElegida(unaDireccion) {direccion = unaDireccion}
-	
-	method nuevaDireccionParaAvanzar() = direccion.siguientePosicion()
-	
-	method comienzaAMoverse() {
-		game.onTick(300, "movimiento Snake", { self.moverseA(self.nuevaDireccionParaAvanzar()) })
-	}
-	
-	
-	method pasarDeNivel() { 
-		game.removeVisual(self)
-		snakeGame.over()
-	}
-	
-}
-
-
-class CuerpoSnake  {
-	var  position
-	
-	method image() = "cuerpo.png"
-	method position() = position
-	
-	/* 
-	method mover(nuevaPosicion){
-	ultimaPosicion = position
-	if (anterior != null) 
-		anterior.mover(ultimaPosicion)
-	position = nuevaPosicion
-	}*/
-	
-	method pasarDeNivel() { 
-		game.removeVisual(self)
-		snakeGame.over()
-	}
-
-}
-
-
-// LA OTRA VERSION
-/*
-    object cabezaSnake  {
-	var position = game.at(2,2)
-	var imagen = "jugador.png"
-	var direccion = derecha
-	var ultimo = self
-	var cuerpo =[]
-	
-	method position() = position
-	method image() = imagen
-	
-	method moverseA(nuevaPosicion) {
-		var posicionActual = position
-		position = nuevaPosicion
-		ultimo.mover(posicionActual)
-	}
-									
-	
-	method direccionElegida(unaDireccion) {direccion = unaDireccion}
-	
-	method nuevaDireccionParaAvanzar() = direccion.siguientePosicion()
-	
-	method comienzaAMoverse() {
-		game.onTick(300, "movimiento Snake", { self.moverseA(self.nuevaDireccionParaAvanzar()) })
-	}
-	
-	
-	method agregarCuerpo(){
-		var parte = new CuerpoSnake( dieccionCabeza = direccion,position = ultimo.position().left(1))
-		cuerpo.add(parte)
-		game.addVisual(parte)
-		ultimo = parte
-	}
-	
-	
-}
-
-
-class CuerpoSnake  {
-	
-	var property dieccionCabeza
+class CuerpoSnake {
+	var property anterior
+	var property siguiente
+	var property image
 	var property position
-	var siguiente = null
-	var anterior = null
-	var ultimaPosicion = null
-	var imagen = "jugador.png"
+	var property posicionPrevia
 	
-
-	 /////////////// anterior ->>> actual->>>> siguiente
-	
-	
-	method image() = imagen
-	
-	
-	method position() = position
-	
-	
-		method mover(nuevaPosicion){
-		ultimaPosicion = position
-		if (anterior != null) 
-			anterior.mover(ultimaPosicion)
+	method moverseA(nuevaPosicion) {
+		posicionPrevia = position
 		position = nuevaPosicion
+		if(siguiente != null){
+			siguiente.moverseA(posicionPrevia)
+		}
 	}
 	
-	method choqueConSnake() { 
-		snakeGame.over()
+	method desaparecer() {
+		game.removeVisual(self)
 	}
-	
-
 }
- */
+
+object cabezaSnake inherits CuerpoSnake(anterior = null, siguiente = null, image = "cabeza-derecha.png", position = game.at(2,2), posicionPrevia = game.at(2,1)) {
+	method cambiarImagen(unaImagen) { self.image(unaImagen) }
+	override method moverseA(nuevaPosicion) {
+		super(nuevaPosicion)
+		serpiente.direccion().imagenSegunDirecc()
+	}
+}
+
+object serpiente {
+	var cuerpo = [cabezaSnake]
+	var direccion = derecha
+	
+	method cuerpo() = cuerpo
+	method direccion() = direccion
+	method direccionElegida(unaDireccion) { 
+		if(unaDireccion != direccion.contraria()){
+			direccion = unaDireccion
+		}
+	}
+	method nuevaPosicionAAvanzar() = direccion.siguientePosicion()
+	
+	method agregarParteACuerpo() {
+		var parte = new CuerpoSnake(anterior = cuerpo.last(), siguiente = null, image = "cuerpo.png", position = cuerpo.last().posicionPrevia(), posicionPrevia = null)
+		cuerpo.last().siguiente(parte)
+		cuerpo.add(parte)
+		game.addVisual(parte)
+	}
+	
+	method comienzaAMoverse() {
+		game.onTick(250, "movimientoSnake", { cabezaSnake.moverseA(self.nuevaPosicionAAvanzar()) })
+	}
+	
+	method detenerse() {
+		game.removeTickEvent("movimientoSnake")
+	}
+	
+	method inicializar() {
+		game.addVisual(cabezaSnake)
+		self.agregarParteACuerpo()
+	}
+}
+
+

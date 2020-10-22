@@ -1,5 +1,6 @@
 import wollok.game.*
 import snakeGame.*
+import serpiente.*
 
 
 class muro{
@@ -7,9 +8,9 @@ class muro{
 	var property image = "muro.png"
 	
 	method choqueConSnake() {
+		serpiente.detenerse()
 		snakeGame.over()
-		
-		}
+	}
 }
 
 
