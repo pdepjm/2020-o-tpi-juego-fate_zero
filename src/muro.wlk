@@ -3,7 +3,7 @@ import snakeGame.*
 import serpiente.*
 
 
-class muro{
+class Muro{
 	var property position
 	var property image = "muro.png"
 	
@@ -15,7 +15,7 @@ class muro{
 
 
 
-class nivel {
+class Nivel {
 	const ancho = game.width()
     const alto = game.height()
     
@@ -40,31 +40,22 @@ method generarBordes() {
 		}
 	method generarEjeY(){
 			posCasillasLaterales.forEach { posicion => 
-				var casilla = new muro(position = posicion)
+				var casilla = new Muro(position = posicion)
 				game.addVisual(casilla)
 				bordeLateral.add(casilla)	
 			}
-			posCasillasCentrales.forEach { posicion => 
-				var casilla = new muro(position = posicion)
-				game.addVisual(casilla)
-				bordeCentral.add(casilla)	
-			}
+			
 		}
 		method generarEjeX(){
 			posCasillasCentrales.forEach { posicion => 
-				var casilla = new muro(position = posicion)
+				var casilla = new Muro(position = posicion)
 				game.addVisual(casilla)
 				bordeCentral.add(casilla)	
 			}
 		}
-		
-}
-object nivel0 inherits nivel{
-	
 	method iniciar() {
 		
 			self.generarBordes();
-			
 			self.generarEjeX();
 			self.generarEjeY();
 			
@@ -72,24 +63,19 @@ object nivel0 inherits nivel{
 		}
 		
 }
-object nivel1 inherits nivel {
+// al nivel 0 lo instancie cuando carga el juego
+object nivel1 inherits Nivel {
 	
-method iniciar() {
-		
-			self.generarBordes();
-			self.modificar()
-			self.generarEjeX();
-			self.generarEjeY();
-			
+override method iniciar() {
+		self.agregandoMuros()
+		super()
 			
 		}
 	
-	method modificar() {
+	method agregandoMuros() {
 			(5 .. ancho-5).forEach{ i => posCasillasCentrales.add(new Position(x=i, y=3)) } // borde abajo
 			(5 .. ancho-5).forEach{ i => posCasillasCentrales.add(new Position(x=i, y=alto-5)) } // borde arriba
-			
-			
-			
+				
 		}
 		
 }

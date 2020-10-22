@@ -24,6 +24,7 @@ object snakeGame {
 	method agregarPersonajes() {
 		serpiente.inicializar()
 		game.addVisual(fruta)
+		var nivel0 = new Nivel()
 		nivel0.iniciar()
 	}
 	
