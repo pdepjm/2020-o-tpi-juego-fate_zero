@@ -31,9 +31,7 @@ class Nivel {
 		
 		(1 .. alto-2).forEach{ i => posCasillasLaterales.add(new Position(x=0, y=i)) } // borde izquierdo
 		(1 .. alto-2).forEach{ i => posCasillasLaterales.add(new Position(x=ancho-1, y=i)) } // borde derecho
-		
-		self.generarEjeX();
-		self.generarEjeY();
+
 	}
 	
 	method generarEjeY(){
