@@ -21,24 +21,31 @@ class CuerpoSnake {
 	
 	method moverseA(nuevaPosicion) {
 		self.desplazarseA(nuevaPosicion)
-		serpiente.direccion().cuerpoSegunDirecc(self)
+		self.cambiarImagen(anterior.image())
 	}
 	
 	method cambiarImagen(unaImagen) { image= unaImagen }
 	
-	method desaparecer() { game.removeVisual(self) }
 	
 }
 
-object cabezaSnake inherits CuerpoSnake(anterior = null, siguiente = null, image = "cabeza-derecha.png", position = game.at(2,2), posicionPrevia = game.at(2,1)) {
+object cabezaSnake inherits CuerpoSnake(anterior = null, siguiente = primeraParte, image = "cabeza-derecha.png", position = game.at(2,2), posicionPrevia = game.at(2,1)) {
 	override method moverseA(nuevaPosicion) {
 		self.desplazarseA(nuevaPosicion)
 		serpiente.direccion().cabezaSegunDirecc()
 	}
 }
 
+object primeraParte inherits CuerpoSnake(anterior = cabezaSnake, siguiente = null, image = "cuerpo-acostado.png", position = game.at(2,1), posicionPrevia = game.at(2,0)) {
+	override method moverseA(nuevaPosicion) {
+		self.desplazarseA(nuevaPosicion)
+		serpiente.direccion().cuerpoSegunDirecc(self)
+	}
+}
+
+
 object serpiente {
-	var cuerpo = [cabezaSnake]
+	var cuerpo = [cabezaSnake, primeraParte]
 	var direccion = derecha
 	
 	method cuerpo() = cuerpo
@@ -51,7 +58,7 @@ object serpiente {
 	method nuevaPosicionAAvanzar() = direccion.siguientePosicion()
 	
 	method agregarParteACuerpo() {
-		var parte = new CuerpoSnake(anterior = cuerpo.last(), siguiente = null, image = "cuerpo.png", position = cuerpo.last().posicionPrevia(), posicionPrevia = null)
+		const parte = new CuerpoSnake(anterior = cuerpo.last(), siguiente = null, image = cuerpo.last().image(), position = cuerpo.last().posicionPrevia(), posicionPrevia = null)
 		cuerpo.last().siguiente(parte)
 		cuerpo.add(parte)
 		game.addVisual(parte)
@@ -65,9 +72,17 @@ object serpiente {
 		game.removeTickEvent("movimientoSnake")
 	}
 	
+	method desaparecer() { 
+		cuerpo.forEach( {unaParte => game.removeVisual(unaParte)} )
+	}
+	
+	method aparecer() { 
+		cuerpo.forEach( {unaParte => game.addVisual(unaParte)} )
+	}
+	
 	method inicializar() {
 		game.addVisual(cabezaSnake)
-		self.agregarParteACuerpo()
+		game.addVisual(primeraParte)
 	}
 }
 

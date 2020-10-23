@@ -4,18 +4,27 @@ import direcciones.*
 import serpiente.*
 import muro.*
 
-object fruta {
-	var posicion = game.at(8, 8)
-	var vecesComida = 0
-
-	method position() = posicion
-	method image() = "manzana.png"
+class ObjetoAleatorio {
+	var property image
+	var property position
 	
 	method posicionAleatoria() {
 		const x = 1.randomUpTo(game.width()-1).truncate(0)
 		const y = 1.randomUpTo(game.height()-1).truncate(0)
-		posicion = game.at(x, y)
+		const posicionTentativa = game.at(x, y)
+		if (self.puedoIrEn(posicionTentativa)) {
+			position = posicionTentativa		
+		} else {
+			self.posicionAleatoria()
+		}
 	}
+	
+	method puedoIrEn(posicionTentativa) = true // posicionTentativa.allElements()
+}
+
+
+object fruta inherits ObjetoAleatorio(image = "manzana.png", position = game.at(8, 8)) {
+	var vecesComida = 0
 	
 	method choqueConSnake() {
 		vecesComida += 1
@@ -39,20 +48,9 @@ object gameOver {
 
 
 
-object hoyo {
-	var posicion = game.at(27,14)
-	
-	method position() = posicion
-	method image() = "hoyo.png"
-	
-	method posicionAleatoria() {
-		const x = 1.randomUpTo(game.width()-1).truncate(0)
-		const y = 1.randomUpTo(game.height()-1).truncate(0)
-		posicion = game.at(x, y)
-	}
+object hoyo inherits ObjetoAleatorio(image = "hoyo.png", position = game.at(27,14)) {
 	
 	method choqueConSnake() { // PASAR DE NIVEL
-		//serpiente.cuerpo().forEach({unaParte => unaParte.desaparecer()})
 		nivel1.iniciar()
 		game.removeVisual(self)
 		game.addVisual(fruta)

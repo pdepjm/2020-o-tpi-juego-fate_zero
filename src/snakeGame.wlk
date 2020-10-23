@@ -39,6 +39,11 @@ object snakeGame {
 		game.onCollideDo(cabezaSnake, {visualColisionado => visualColisionado.choqueConSnake()})
 	}
 	
+	method lost() {
+		serpiente.detenerse()
+		self.over()
+	}
+	
 	method over() {
 		game.addVisual(gameOver)
 		game.schedule(5000, {game.stop()})

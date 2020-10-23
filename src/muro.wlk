@@ -8,8 +8,7 @@ class Muro{
 	var property image = "muro.png"
 	
 	method choqueConSnake() {
-		serpiente.detenerse()
-		snakeGame.over()
+		snakeGame.lost()
 	}
 }
 
