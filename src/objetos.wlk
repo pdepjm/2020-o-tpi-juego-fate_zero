@@ -2,7 +2,7 @@ import wollok.game.*
 import snakeGame.*
 import direcciones.*
 import serpiente.*
-import muro.*
+import niveles.*
 
 class ObjetoAleatorio {
 	var property image
@@ -19,7 +19,7 @@ class ObjetoAleatorio {
 		}
 	}
 	
-	method puedoIrEn(posicionTentativa) = true // posicionTentativa.allElements()
+	method puedoIrEn(posicionTentativa) = posicionTentativa.allElements().isEmpty()
 }
 
 

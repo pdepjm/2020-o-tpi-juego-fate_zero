@@ -1,7 +1,7 @@
 import wollok.game.*
 import objetos.*
 import direcciones.*
-import muro.*
+import niveles.*
 import serpiente.*
 
 object snakeGame {

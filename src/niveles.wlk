@@ -18,9 +18,6 @@ class Nivel {
 	const ancho = game.width()
     const alto = game.height()
     
-	var bordeLateral = []
-	var bordeCentral = []
-	
 	var posCasillasLaterales = []
 	var posCasillasCentrales = []
 	
@@ -33,32 +30,22 @@ class Nivel {
 
 	}
 	
-	method generarEjeY(){
-		posCasillasLaterales.forEach { posicion => 
-			var casilla = new Muro(position = posicion)
-			game.addVisual(casilla)
-			bordeLateral.add(casilla)	
-		}
-			
-	}
 	
-	method generarEjeX(){
-		posCasillasCentrales.forEach { posicion => 
+	method dibujar(posiciones){
+		posiciones.forEach { posicion => 
 			var casilla = new Muro(position = posicion)
 			game.addVisual(casilla)
-			bordeCentral.add(casilla)	
+			
 		}
 	}
 	
 	method iniciar() {
 		self.generarBordes()
-		self.generarEjeX()
-		self.generarEjeY()
+		self.dibujar(posCasillasLaterales)
+		self.dibujar(posCasillasCentrales)
 	}
 		
 }
-
-
 
 // al nivel 0 lo instancie cuando carga el juego
 object nivel1 inherits Nivel {

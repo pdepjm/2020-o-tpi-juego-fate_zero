@@ -2,7 +2,7 @@ import wollok.game.*
 import objetos.*
 import snakeGame.*
 import direcciones.*
-import muro.*
+import niveles.*
 
 program game {
 	snakeGame.iniciar()

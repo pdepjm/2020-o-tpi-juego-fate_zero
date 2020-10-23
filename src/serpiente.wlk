@@ -2,7 +2,7 @@ import wollok.game.*
 import objetos.*
 import snakeGame.*
 import direcciones.*
-import muro.*
+import niveles.*
 
 class CuerpoSnake {
 	var property anterior
@@ -26,7 +26,9 @@ class CuerpoSnake {
 	
 	method cambiarImagen(unaImagen) { image= unaImagen }
 	
-	
+	method choqueConSnake() {
+		snakeGame.lost()
+	}
 }
 
 object cabezaSnake inherits CuerpoSnake(anterior = null, siguiente = primeraParte, image = "cabeza-derecha.png", position = game.at(2,2), posicionPrevia = game.at(2,1)) {
@@ -47,6 +49,7 @@ object primeraParte inherits CuerpoSnake(anterior = cabezaSnake, siguiente = nul
 object serpiente {
 	var cuerpo = [cabezaSnake, primeraParte]
 	var direccion = derecha
+	var velocidad = 200
 	
 	method cuerpo() = cuerpo
 	method direccion() = direccion
@@ -65,7 +68,7 @@ object serpiente {
 	}
 	
 	method comienzaAMoverse() {
-		game.onTick(250, "movimientoSnake", { cabezaSnake.moverseA(self.nuevaPosicionAAvanzar()) })
+		game.onTick(200, "movimientoSnake", { cabezaSnake.moverseA(self.nuevaPosicionAAvanzar()) })
 	}
 	
 	method detenerse() {
