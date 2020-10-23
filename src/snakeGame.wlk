@@ -10,7 +10,7 @@ object snakeGame {
 		self.agregarPersonajes()
 		self.configurarTeclas()
 		self.configurarAcciones()
-		serpiente.comienzaAMoverse()
+		serpiente.comienzaAMoverse(200)
 		game.start()
 	}
 	

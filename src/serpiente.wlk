@@ -49,7 +49,7 @@ object primeraParte inherits CuerpoSnake(anterior = cabezaSnake, siguiente = nul
 object serpiente {
 	var cuerpo = [cabezaSnake, primeraParte]
 	var direccion = derecha
-	var velocidad = 200
+	
 	
 	method cuerpo() = cuerpo
 	method direccion() = direccion
@@ -67,8 +67,8 @@ object serpiente {
 		game.addVisual(parte)
 	}
 	
-	method comienzaAMoverse() {
-		game.onTick(200, "movimientoSnake", { cabezaSnake.moverseA(self.nuevaPosicionAAvanzar()) })
+	method comienzaAMoverse(velocidad) {
+		game.onTick(velocidad, "movimientoSnake", { cabezaSnake.moverseA(self.nuevaPosicionAAvanzar()) })
 	}
 	
 	method detenerse() {

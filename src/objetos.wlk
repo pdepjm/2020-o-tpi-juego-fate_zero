@@ -27,6 +27,9 @@ object fruta inherits ObjetoAleatorio(image = "manzana.png", position = game.at(
 	var vecesComida = 0
 	
 	method choqueConSnake() {
+		var sonido = game.sound("comer.mp3") 
+		sonido.play()
+		game.sound("comer.mp3")
 		vecesComida += 1
 		self.posicionAleatoria()
 		serpiente.agregarParteACuerpo()
