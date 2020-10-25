@@ -49,15 +49,17 @@ class Nivel {
 
 // al nivel 0 lo instancie cuando carga el juego
 object nivel1 inherits Nivel {
+	var posiciones1 = []
 	
 	override method iniciar() {
-		self.agregandoMuros()
 		super()	
+		self.agregandoMuros()
+		self.dibujar(posiciones1)
 	}
 	
 	method agregandoMuros() {
-		(5 .. ancho-5).forEach{ i => posCasillasCentrales.add(new Position(x=i, y=3)) } // borde abajo
-		(5 .. ancho-5).forEach{ i => posCasillasCentrales.add(new Position(x=i, y=alto-5)) } // borde arriba
+		(5 .. ancho-5).forEach{ i => posiciones1.add(new Position(x=i, y=3)) } 
+		(5 .. ancho-5).forEach{ i => posiciones1.add(new Position(x=i, y=alto-5)) } 
 			
 	}
 		
