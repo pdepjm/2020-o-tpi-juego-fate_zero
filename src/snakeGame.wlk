@@ -45,6 +45,8 @@ object snakeGame {
 	}
 	
 	method over() {
+		const sonido = game.sound("game-over.wav")
+		sonido.play()
 		game.addVisual(gameOver)
 		game.schedule(5000, {game.stop()})
 	}

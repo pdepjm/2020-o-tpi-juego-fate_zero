@@ -22,21 +22,20 @@ class Nivel {
 	var posCasillasCentrales = []
 	
 	method generarBordes() {
-		(0 .. ancho-1).forEach{ i => posCasillasCentrales.add(new Position(x=i, y=0)) } // borde abajo
-		(0 .. ancho-1).forEach{ i => posCasillasCentrales.add(new Position(x=i, y=alto-1)) } // borde arriba
+		(0 .. ancho-1).forEach({ i => posCasillasCentrales.add(new Position(x=i, y=0)) }) // borde abajo
+		(0 .. ancho-1).forEach({ i => posCasillasCentrales.add(new Position(x=i, y=alto-1)) }) // borde arriba
 		
-		(1 .. alto-2).forEach{ i => posCasillasLaterales.add(new Position(x=0, y=i)) } // borde izquierdo
-		(1 .. alto-2).forEach{ i => posCasillasLaterales.add(new Position(x=ancho-1, y=i)) } // borde derecho
+		(1 .. alto-2).forEach({ i => posCasillasLaterales.add(new Position(x=0, y=i)) }) // borde izquierdo
+		(1 .. alto-2).forEach({ i => posCasillasLaterales.add(new Position(x=ancho-1, y=i)) }) // borde derecho
 
 	}
 	
 	
 	method dibujar(posiciones){
-		posiciones.forEach { posicion => 
-			var casilla = new Muro(position = posicion)
+		posiciones.forEach({ posicion => 
+			const casilla = new Muro(position = posicion)
 			game.addVisual(casilla)
-			
-		}
+		})
 	}
 	
 	method iniciar() {
@@ -58,8 +57,8 @@ object nivel1 inherits Nivel {
 	}
 	
 	method agregandoMuros() {
-		(5 .. ancho-5).forEach{ i => posiciones1.add(new Position(x=i, y=3)) } 
-		(5 .. ancho-5).forEach{ i => posiciones1.add(new Position(x=i, y=alto-5)) } 
+		(5 .. ancho-5).forEach({ i => posiciones1.add(new Position(x=i, y=3)) })
+		(5 .. ancho-5).forEach({ i => posiciones1.add(new Position(x=i, y=alto-5)) })
 			
 	}
 		

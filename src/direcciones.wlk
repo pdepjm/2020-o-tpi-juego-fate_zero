@@ -1,30 +1,32 @@
 import objetos.*
 import serpiente.*
 
-object arriba {
+class Direccion {
+	var property imagenCabeza
+	var property imagenCuerpo
+	
+	method cabezaSegunDirecc() { cabezaSnake.cambiarImagen(imagenCabeza) }
+	method cuerpoSegunDirecc(unaParte) { unaParte.cambiarImagen(imagenCuerpo) }
+}
+
+
+
+object arriba inherits Direccion(imagenCabeza = "cabeza-arribaV2.png", imagenCuerpo = "cuerpo-vertical.png") {
 	method siguientePosicion() = cabezaSnake.position().up(1)
 	method contraria() = abajo
-	method cabezaSegunDirecc() { cabezaSnake.cambiarImagen("cabeza-arribaV2.png")}
-	method cuerpoSegunDirecc(unaParte) {unaParte.cambiarImagen("cuerpo-vertical.png") }
 }
 
-object abajo {
+object abajo inherits Direccion(imagenCabeza = "cabeza-abajo.png", imagenCuerpo = "cuerpo-vertical.png") {
 	method siguientePosicion() = cabezaSnake.position().down(1)
 	method contraria() = arriba
-	method cabezaSegunDirecc() { cabezaSnake.cambiarImagen("cabeza-abajo.png")}
-	method cuerpoSegunDirecc(unaParte) {unaParte.cambiarImagen("cuerpo-vertical.png") }
 }
 
-object izquierda {
+object izquierda inherits Direccion(imagenCabeza = "cabeza-izquierda.png", imagenCuerpo = "cuerpo-horizontal.png") {
 	method siguientePosicion() = cabezaSnake.position().left(1)
 	method contraria() = derecha
-	method cabezaSegunDirecc() { cabezaSnake.cambiarImagen("cabeza-izquierda.png")}
-	method cuerpoSegunDirecc(unaParte) {unaParte.cambiarImagen("cuerpo-horizontal.png") }
 }
 
-object derecha {
+object derecha inherits Direccion(imagenCabeza = "cabeza-derecha.png", imagenCuerpo = "cuerpo-horizontal.png") {
 	method siguientePosicion() = cabezaSnake.position().right(1)
 	method contraria() = izquierda
-	method cabezaSegunDirecc() { cabezaSnake.cambiarImagen("cabeza-derecha.png")}
-	method cuerpoSegunDirecc(unaParte) {unaParte.cambiarImagen("cuerpo-horizontal.png") }
 }
