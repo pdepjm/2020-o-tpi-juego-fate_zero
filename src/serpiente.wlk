@@ -87,6 +87,29 @@ object serpiente {
 		game.addVisual(cabezaSnake)
 		game.addVisual(primeraParte)
 	}
+	
+	method reiniciar() {
+		self.detenerse()
+		self.desaparecer()
+		
+		cuerpo.forEach( {unaParte => 
+			if(cuerpo.size() > 2){
+				cuerpo.remove(cuerpo.last())
+			}
+		})
+		
+		direccion = derecha
+		
+		cabezaSnake.position(game.at(4,2))
+		cabezaSnake.posicionPrevia(game.at(3,2))
+		cabezaSnake.image("cabeza-derecha.png")
+		
+		primeraParte.position(game.at(3,2))
+		primeraParte.posicionPrevia(game.at(2,2))
+		primeraParte.image("cuerpo-horizontal.png")
+		
+		self.aparecer()
+	}
 }
 
 

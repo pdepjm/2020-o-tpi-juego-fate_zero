@@ -6,7 +6,6 @@ import niveles.*
 import serpiente.*
 
 object snakeGame {
-	var property nivel
 	var property panel = start
 	var property jugando = false
 	
@@ -32,7 +31,6 @@ object snakeGame {
 		game.addVisual(fruta)
 		const nivel0 = new Nivel()
 		nivel0.iniciar()
-		nivel = nivel0
 	}
 	
 	method configurarTeclas() {

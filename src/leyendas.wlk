@@ -20,20 +20,20 @@ class Panel {
 }
 
 object start inherits Panel(image = "start.png") {
-	/*override method pasarDeNivel() {
+	override method pasarDeNivel() {
 		super()
 		snakeGame.panel(level1)
-	}*/
+	}
 }
-/*
+
 object level1 inherits Panel(image = "level-1.png") {
-	override method pasarDeNivel() {
+	/*override method pasarDeNivel() {
 		super()
 		snakeGame.panel(level2)
 		snakeGame.nivel(nivel2)
-	} 
+	} */
 }
-
+/*
 
 object level2 inherits Panel(image = "level-2.png") {
 	override method pasarDeNivel() {
@@ -49,7 +49,7 @@ object level3 inherits Panel(image = "level-3.png") {
 		snakeGame.panel(youWon)
 	}
 }
-
+*/
 object youWon inherits Panel(image = "you-won.png") {
 	override method pasarDeNivel() {
 		snakeGame.over()
@@ -67,4 +67,4 @@ object youLost {
 			snakeGame.jugando(true)
 		}
 	}
-}*/
+}

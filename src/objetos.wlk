@@ -1,6 +1,7 @@
 import wollok.game.*
 import snakeGame.*
 import direcciones.*
+import leyendas.*
 import serpiente.*
 import niveles.*
 
@@ -53,8 +54,9 @@ object hoyo inherits ObjetoAleatorio(image = "hoyo.png", position = game.at(27,1
 		
 	method choqueConSnake() { // PASAR DE NIVEL
 		snakeGame.reproducirSonido("level-up.wav")
-		nivel1.iniciar()
 		game.removeVisual(self)
-		game.addVisual(fruta)
+		snakeGame.jugando(false)
+		nivel1.iniciar()
+		game.addVisual(level1)
 	}
 }

@@ -1,6 +1,7 @@
 import wollok.game.*
 import snakeGame.*
 import serpiente.*
+import objetos.*
 
 
 class Muro{
@@ -54,6 +55,8 @@ object nivel1 inherits Nivel {
 		super()	
 		self.agregandoMuros()
 		self.dibujar(posiciones1)
+		serpiente.reiniciar()
+		game.addVisual(fruta)
 	}
 	
 	method agregandoMuros() {
