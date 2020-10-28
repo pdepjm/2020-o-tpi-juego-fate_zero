@@ -31,14 +31,14 @@ class CuerpoSnake {
 	}
 }
 
-object cabezaSnake inherits CuerpoSnake(anterior = null, siguiente = primeraParte, image = "cabeza-derecha.png", position = game.at(2,2), posicionPrevia = game.at(2,1)) {
+object cabezaSnake inherits CuerpoSnake(anterior = null, siguiente = primeraParte, image = "cabeza-derecha.png", position = game.at(4,2), posicionPrevia = game.at(3,2)) {
 	override method moverseA(nuevaPosicion) {
 		self.desplazarseA(nuevaPosicion)
 		serpiente.direccion().cabezaSegunDirecc()
 	}
 }
 
-object primeraParte inherits CuerpoSnake(anterior = cabezaSnake, siguiente = null, image = "cuerpo-acostado.png", position = game.at(2,1), posicionPrevia = game.at(2,0)) {
+object primeraParte inherits CuerpoSnake(anterior = cabezaSnake, siguiente = null, image = "cuerpo-horizontal.png", position = game.at(3,2), posicionPrevia = game.at(2,2)) {
 	override method moverseA(nuevaPosicion) {
 		self.desplazarseA(nuevaPosicion)
 		serpiente.direccion().cuerpoSegunDirecc(self)

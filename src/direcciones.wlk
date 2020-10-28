@@ -11,7 +11,7 @@ class Direccion {
 
 
 
-object arriba inherits Direccion(imagenCabeza = "cabeza-arribaV2.png", imagenCuerpo = "cuerpo-vertical.png") {
+object arriba inherits Direccion(imagenCabeza = "cabeza-arriba.png", imagenCuerpo = "cuerpo-vertical.png") {
 	method siguientePosicion() = cabezaSnake.position().up(1)
 	method contraria() = abajo
 }

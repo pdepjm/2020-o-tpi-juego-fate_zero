@@ -1,16 +1,22 @@
 import wollok.game.*
 import objetos.*
 import direcciones.*
+import leyendas.*
 import niveles.*
 import serpiente.*
 
 object snakeGame {
+	var property nivel
+	var property panel = start
+	var property jugando = false
+	
+	
 	method iniciar() {
 		self.configurarJuego()
 		self.agregarPersonajes()
 		self.configurarTeclas()
 		self.configurarAcciones()
-		serpiente.comienzaAMoverse(200)
+		game.addVisual(panel)
 		game.start()
 	}
 	
@@ -26,6 +32,7 @@ object snakeGame {
 		game.addVisual(fruta)
 		const nivel0 = new Nivel()
 		nivel0.iniciar()
+		nivel = nivel0
 	}
 	
 	method configurarTeclas() {
@@ -33,6 +40,12 @@ object snakeGame {
 		keyboard.down().onPressDo({serpiente.direccionElegida(abajo)})
 		keyboard.left().onPressDo({serpiente.direccionElegida(izquierda)})
 		keyboard.right().onPressDo({serpiente.direccionElegida(derecha)})
+		
+		keyboard.enter().onPressDo({ panel.pasarDeNivel() })
+		keyboard.q().onPressDo({
+			if(not jugando)
+				game.schedule(1000, {game.stop()})
+		})
 	}
 	
 	method configurarAcciones() {
@@ -45,9 +58,13 @@ object snakeGame {
 	}
 	
 	method over() {
-		const sonido = game.sound("game-over.wav")
-		sonido.play()
+		self.reproducirSonido("game-over.wav")
 		game.addVisual(gameOver)
 		game.schedule(5000, {game.stop()})
+	}
+	
+	method reproducirSonido(unSonido) {
+		const sonido = game.sound(unSonido)
+		sonido.play()
 	}
 }

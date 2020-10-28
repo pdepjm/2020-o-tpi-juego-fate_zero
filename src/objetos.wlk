@@ -25,14 +25,9 @@ class ObjetoAleatorio {
 
 object fruta inherits ObjetoAleatorio(image = "manzana.png", position = game.at(8, 8)) {
 	var vecesComida = 0
-	
-	method mordida() {
-		const sonido = game.sound("eating-apple.wav")
-		sonido.play() 
-	}
-	
+		
 	method choqueConSnake() {
-		self.mordida()
+		snakeGame.reproducirSonido("eating-apple.wav")
 		vecesComida += 1
 		self.posicionAleatoria(1)
 		serpiente.agregarParteACuerpo()
@@ -55,13 +50,9 @@ object gameOver {
 
 
 object hoyo inherits ObjetoAleatorio(image = "hoyo.png", position = game.at(27,14)) {
-	method levelUp() {
-		const sonido = game.sound("level-up.wav")
-		sonido.play()
-	}
-	
+		
 	method choqueConSnake() { // PASAR DE NIVEL
-		self.levelUp()
+		snakeGame.reproducirSonido("level-up.wav")
 		nivel1.iniciar()
 		game.removeVisual(self)
 		game.addVisual(fruta)
