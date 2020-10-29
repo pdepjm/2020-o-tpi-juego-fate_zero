@@ -1,21 +1,20 @@
 import wollok.game.*
 import objetos.*
 import direcciones.*
-import leyendas.*
+import titulosYfondos.*
 import niveles.*
 import serpiente.*
 
 object snakeGame {
-	var property panel = start
+	var property nivel = nivel1
 	var property jugando = false
-	var property nivel = "nivel1"
+	var property perdio = false
 	
 	method iniciar() {
 		self.configurarJuego()
 		self.agregarPersonajes()
 		self.configurarTeclas()
 		self.configurarAcciones()
-		game.addVisual(panel)
 		game.start()
 	}
 	
@@ -29,8 +28,7 @@ object snakeGame {
 	method agregarPersonajes() {
 		serpiente.inicializar()
 		game.addVisual(fruta)
-		const nivel1 = new Nivel()
-		nivel1.iniciar()
+		nivel.iniciar()
 	}
 	
 	method configurarTeclas() {
@@ -39,14 +37,17 @@ object snakeGame {
 		keyboard.left().onPressDo({serpiente.direccionElegida(izquierda)})
 		keyboard.right().onPressDo({serpiente.direccionElegida(derecha)})
 		
-		keyboard.enter().onPressDo({ panel.pasarDeNivel() })
+		keyboard.enter().onPressDo({ 
+			if(not jugando and not perdio)
+				nivel.empezarAJugar()
+		})
 		keyboard.x().onPressDo({ 
-			if(not jugando)
-				panel.reiniciarNivel()
+			if(not jugando and perdio)
+				nivel.reiniciarNivel()
 		})
 		keyboard.q().onPressDo({
 			if(not jugando)
-				game.schedule(1000, {game.stop()})
+				game.schedule(100, {game.stop()})
 		})
 	}
 	
@@ -59,18 +60,19 @@ object snakeGame {
 		sonido.play()
 	}
 	
-	method mostrarNuevoPanel(nuevoPanel) {
-		panel = nuevoPanel
-		game.addVisual(panel)
+	method pasarASiguienteNivel() {
+		nivel = nivel.siguiente()
+		if(nivel != null){
+			nivel.iniciar()
+		}
 	}
-	
-	
 	
 	method lost() {
 		serpiente.detenerse()
 		self.reproducirSonido("lose.wav")
 		jugando = false
-		self.mostrarNuevoPanel(youLost)
+		perdio = true
+		game.addVisual(youLost)
 	}
 	
 	method win() {

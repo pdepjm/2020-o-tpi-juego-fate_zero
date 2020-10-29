@@ -2,6 +2,7 @@ import wollok.game.*
 import snakeGame.*
 import serpiente.*
 import objetos.*
+import titulosYfondos.*
 
 
 class Muro{
@@ -16,8 +17,13 @@ class Muro{
 
 
 class Nivel {
-	const ancho = game.width()
-    const alto = game.height()
+	const property siguiente
+	const property titulo
+	const property reiniciarFruta
+	
+	
+	const ancho = 32 //game.width()
+    const alto = 18 //game.height()
     
 	var posCasillasLaterales = []
 	var posCasillasCentrales = []
@@ -33,31 +39,58 @@ class Nivel {
 	
 	
 	method dibujar(posiciones){
-		posiciones.forEach({ posicion => 
-			const casilla = new Muro(position = posicion)
+		posiciones.forEach({ unaPosicion => 
+			var casilla = new Muro(position = unaPosicion)
 			game.addVisual(casilla)
 		})
 	}
 	
 	method iniciar() {
+		serpiente.reiniciar()
 		self.generarBordes()
 		self.dibujar(posCasillasLaterales)
 		self.dibujar(posCasillasCentrales)
 	}
+	
+	method empezarAJugar() {
+		game.removeVisual(titulo)
+		serpiente.comienzaAMoverse(200)
+		snakeGame.jugando(true)
+	}
+	
+	method reiniciarNivel() {
+		game.removeVisual(youLost)
+		serpiente.reiniciar()
+		serpiente.comienzaAMoverse(200)
+		snakeGame.jugando(true)
+		snakeGame.perdio(false)
+		fruta.vecesComida(reiniciarFruta)
+	}
+	
+	method agregarFrutaYTitulo() {
+		fruta.posicionAleatoria(1)
+		game.addVisual(fruta)
+		game.addVisual(titulo)
+	}
 		
 }
 
-// al nivel 1 lo instancie cuando carga el juego
-object nivel2 inherits Nivel {
+object nivel1 inherits Nivel(siguiente = nivel2, titulo = start, reiniciarFruta = 0) {
+	override method iniciar() {
+		super()
+		game.addVisual(titulo)
+	}
+} 
+
+
+object nivel2 inherits Nivel(siguiente = null, titulo = level1, reiniciarFruta = 3) {
 	var posiciones1 = []
 	
 	override method iniciar() {
 		super()
-		snakeGame.nivel("nivel2")
 		self.agregandoMuros()
 		self.dibujar(posiciones1)
-		serpiente.reiniciar()
-		game.addVisual(fruta)
+		self.agregarFrutaYTitulo()
 	}
 	
 	method agregandoMuros() {
@@ -66,6 +99,14 @@ object nivel2 inherits Nivel {
 			
 	}
 		
+}
+
+object nivel3 inherits Nivel(siguiente = null, titulo = level2, reiniciarFruta = 10) {
+	override method iniciar() {
+		game.addVisual(underground)
+		super()
+		self.agregarFrutaYTitulo()
+	}
 }
 
 
