@@ -47,12 +47,13 @@ class Nivel {
 		
 }
 
-// al nivel 0 lo instancie cuando carga el juego
-object nivel1 inherits Nivel {
+// al nivel 1 lo instancie cuando carga el juego
+object nivel2 inherits Nivel {
 	var posiciones1 = []
 	
 	override method iniciar() {
-		super()	
+		super()
+		snakeGame.nivel("nivel2")
 		self.agregandoMuros()
 		self.dibujar(posiciones1)
 		serpiente.reiniciar()

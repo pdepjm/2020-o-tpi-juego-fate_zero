@@ -89,7 +89,6 @@ object serpiente {
 	}
 	
 	method reiniciar() {
-		self.detenerse()
 		self.desaparecer()
 		
 		cuerpo.forEach( {unaParte => 

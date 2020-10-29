@@ -8,7 +8,7 @@ import serpiente.*
 object snakeGame {
 	var property panel = start
 	var property jugando = false
-	
+	var property nivel = "nivel1"
 	
 	method iniciar() {
 		self.configurarJuego()
@@ -29,8 +29,8 @@ object snakeGame {
 	method agregarPersonajes() {
 		serpiente.inicializar()
 		game.addVisual(fruta)
-		const nivel0 = new Nivel()
-		nivel0.iniciar()
+		const nivel1 = new Nivel()
+		nivel1.iniciar()
 	}
 	
 	method configurarTeclas() {
@@ -40,6 +40,10 @@ object snakeGame {
 		keyboard.right().onPressDo({serpiente.direccionElegida(derecha)})
 		
 		keyboard.enter().onPressDo({ panel.pasarDeNivel() })
+		keyboard.x().onPressDo({ 
+			if(not jugando)
+				panel.reiniciarNivel()
+		})
 		keyboard.q().onPressDo({
 			if(not jugando)
 				game.schedule(1000, {game.stop()})
@@ -50,19 +54,33 @@ object snakeGame {
 		game.onCollideDo(cabezaSnake, {visualColisionado => visualColisionado.choqueConSnake()})
 	}
 	
+	method reproducirSonido(unSonido) {
+		const sonido = game.sound(unSonido)
+		sonido.play()
+	}
+	
+	method mostrarNuevoPanel(nuevoPanel) {
+		panel = nuevoPanel
+		game.addVisual(panel)
+	}
+	
+	
+	
 	method lost() {
 		serpiente.detenerse()
+		self.reproducirSonido("lose.wav")
+		jugando = false
+		self.mostrarNuevoPanel(youLost)
+	}
+	
+	method win() {
+		serpiente.detenerse()
+		self.reproducirSonido("win.wav")
+		game.addVisual(youWon)
 		self.over()
 	}
 	
 	method over() {
-		self.reproducirSonido("game-over.wav")
-		game.addVisual(gameOver)
 		game.schedule(5000, {game.stop()})
-	}
-	
-	method reproducirSonido(unSonido) {
-		const sonido = game.sound(unSonido)
-		sonido.play()
 	}
 }

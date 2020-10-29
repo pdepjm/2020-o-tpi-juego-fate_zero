@@ -17,6 +17,19 @@ class Panel {
 		}
 	}
 	
+	method reiniciarNivel() {
+		game.removeVisual(self)
+		serpiente.reiniciar()
+		serpiente.comienzaAMoverse(200)
+		snakeGame.jugando(true)
+		if(snakeGame.nivel() == "nivel1") {
+			fruta.vecesComida(0)
+		}
+		if(snakeGame.nivel() == "nivel2") {
+			fruta.vecesComida(3)
+		}
+	}
+	
 }
 
 object start inherits Panel(image = "start.png") {
@@ -50,21 +63,12 @@ object level3 inherits Panel(image = "level-3.png") {
 	}
 }
 */
-object youWon inherits Panel(image = "you-won.png") {
-	override method pasarDeNivel() {
-		snakeGame.over()
-	}
-}
 
-object youLost {
+
+object youLost inherits Panel(image = "you-lost.png") { }
+
+object youWon {
 	method position() = game.at(0,0)
-	method image() = "you-lost.png"
+	method image() = "you-won.png"
 	
-	method reiniciarNivel() {
-		if(not snakeGame.jugando()){
-			game.removeVisual(self)
-			serpiente.comienzaAMoverse(200)
-			snakeGame.jugando(true)
-		}
-	}
 }

@@ -25,7 +25,7 @@ class ObjetoAleatorio {
 
 
 object fruta inherits ObjetoAleatorio(image = "manzana.png", position = game.at(8, 8)) {
-	var vecesComida = 0
+	var property vecesComida = 0
 		
 	method choqueConSnake() {
 		snakeGame.reproducirSonido("eating-apple.wav")
@@ -37,15 +37,11 @@ object fruta inherits ObjetoAleatorio(image = "manzana.png", position = game.at(
 			hoyo.posicionAleatoria(2)
 			game.addVisual(hoyo)
 		}
+		if(vecesComida == 10){
+			game.removeVisual(self)
+			game.addVisual(nest)
+		}
 	}
-}
-
-
-
-object gameOver {
-	method position() = game.at(9,2)
-	method image() = "game_over.png"
-	method choqueConSnake() {}
 }
 
 
@@ -54,9 +50,19 @@ object hoyo inherits ObjetoAleatorio(image = "hoyo.png", position = game.at(27,1
 		
 	method choqueConSnake() { // PASAR DE NIVEL
 		snakeGame.reproducirSonido("level-up.wav")
+		serpiente.detenerse()
 		game.removeVisual(self)
 		snakeGame.jugando(false)
-		nivel1.iniciar()
-		game.addVisual(level1)
+		nivel2.iniciar()
+		snakeGame.mostrarNuevoPanel(level1)
+	}
+}
+
+object nest {
+	method position() = game.at(15,1)
+	method image() = "nest.png"
+	
+	method choqueConSnake() {
+		snakeGame.win()
 	}
 }
