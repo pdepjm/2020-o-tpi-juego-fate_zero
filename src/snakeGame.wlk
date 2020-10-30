@@ -9,6 +9,8 @@ object snakeGame {
 	var property nivel = nivel1
 	var property jugando = false
 	var property perdio = false
+	var property pocionAzulActivada = false
+	var won = false
 	
 	method iniciar() {
 		self.configurarJuego()
@@ -27,23 +29,52 @@ object snakeGame {
 	
 	method agregarPersonajes() {
 		serpiente.inicializar()
-		game.addVisual(fruta)
 		nivel.iniciar()
 	}
 	
 	method configurarTeclas() {
-		keyboard.up().onPressDo({serpiente.direccionElegida(arriba)})
-		keyboard.down().onPressDo({serpiente.direccionElegida(abajo)})
-		keyboard.left().onPressDo({serpiente.direccionElegida(izquierda)})
-		keyboard.right().onPressDo({serpiente.direccionElegida(derecha)})
 		
+		// TECLAS DE DIRECCION
+		keyboard.up().onPressDo({
+			if(not pocionAzulActivada){
+				serpiente.direccionElegida(arriba)
+			}else {
+				serpiente.direccionElegida(abajo)
+			}
+		})
+		keyboard.down().onPressDo({
+			if(not pocionAzulActivada){
+				serpiente.direccionElegida(abajo)
+			}else {
+				serpiente.direccionElegida(arriba)
+			}
+		})
+		keyboard.left().onPressDo({
+			if(not pocionAzulActivada){
+				serpiente.direccionElegida(izquierda)
+			}else {
+				serpiente.direccionElegida(derecha)
+			}
+		})
+		keyboard.right().onPressDo({
+			if(not pocionAzulActivada){
+				serpiente.direccionElegida(derecha)
+			}else {
+				serpiente.direccionElegida(izquierda)
+			}
+		})
+		
+		
+		// TECLAS ENTER, X Y Q
 		keyboard.enter().onPressDo({ 
 			if(not jugando and not perdio)
 				nivel.empezarAJugar()
 		})
 		keyboard.x().onPressDo({ 
-			if(not jugando and perdio)
+			if((not jugando and perdio) or won){
+				won = false
 				nivel.reiniciarNivel()
+			}
 		})
 		keyboard.q().onPressDo({
 			if(not jugando)
@@ -79,6 +110,7 @@ object snakeGame {
 		serpiente.detenerse()
 		self.reproducirSonido("win.wav")
 		game.addVisual(youWon)
+		won = true
 		self.over()
 	}
 	

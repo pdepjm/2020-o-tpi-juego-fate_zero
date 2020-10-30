@@ -43,3 +43,8 @@ object underground {
 	method position() = game.at(0,0)
 	method image() = "tierra.png"
 }
+
+object grass {
+	method position() = game.at(0,0)
+	method image() = "pasto.png"
+}
