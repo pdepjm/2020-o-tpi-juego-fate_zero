@@ -5,23 +5,18 @@ import objetos.*
 import titulosYfondos.*
 
 
-class Muro{
-	var property position
-	var property image = "muro.png"
-	
-	method choqueConSnake() {
-		snakeGame.lost()
-	}
-}
-
-
-
 class Nivel {
 	const property anterior
 	const property siguiente
 	const property titulo
+	var property background = null
+	var property murosInternos = false
 	const property limiteFruta
 	const property imagenMuro = "muro.png"
+	var posMurosInternos = []
+	
+	
+	
 	
 	const ancho = 32 //game.width()
     const alto = 18 //game.height()
@@ -44,23 +39,30 @@ class Nivel {
 		})
 	}
 	
+	method agregarMurosInternos(unBool) {
+		if(unBool){
+			(5 .. ancho-5).forEach({ i => posMurosInternos.add(new Position(x=i, y=3)) })
+			(5 .. ancho-5).forEach({ i => posMurosInternos.add(new Position(x=i, y=alto-5)) })
+			self.dibujar(posMurosInternos)
+		}
+		
+	}
 	
 	method dibujarBordes() {
 		self.generarBordes()
 		self.dibujar(posCasillasLaterales)
 		self.dibujar(posCasillasCentrales)
 	}
-	
-	method agregandoMuros() { }
-	
-	method nuevoFondo() {
 		
-	}
 	
 	method iniciar() {
+		if(background != null){
+			game.addVisual(background)
+		}
+		
 		serpiente.reiniciar()
 		self.dibujarBordes()
-		self.agregandoMuros()
+		self.agregarMurosInternos(murosInternos)
 		fruta.limite(limiteFruta)
 		fruta.posicionAleatoria(1)
 		game.addVisual(fruta)
@@ -75,11 +77,15 @@ class Nivel {
 	
 	method reiniciarNivel() {
 		game.removeVisual(youLost)
+		pociones.desaparecer()
 		serpiente.reiniciar()
 		serpiente.comienzaAMoverse(200)
 		snakeGame.jugando(true)
 		snakeGame.perdio(false)
-		self.reiniciarConteoFruta()
+		pocionRoja.activada(false)
+		if(not game.hasVisual(hoyo)){
+			self.reiniciarConteoFruta()
+		}
 	}
 	
 	method reiniciarConteoFruta() {
@@ -89,63 +95,20 @@ class Nivel {
 			fruta.vecesComida(anterior.limiteFruta())
 		}
 	}
-		
 }
 
-object nivel1 inherits Nivel(anterior = null, siguiente = nivel2, titulo = start, limiteFruta = 3) { } 
 
-
-object nivel2 inherits Nivel(anterior = nivel1, siguiente = null, titulo = level1, limiteFruta = 8) {
-	var posiciones1 = []
+object nivel1 inherits Nivel(anterior = null, siguiente = nivel2, titulo = start, limiteFruta = 7) {
 	
-	override method iniciar() {
-		super()
-	}
+} 
+
+
+object nivel2 inherits Nivel(anterior = nivel1, siguiente = nivel3, titulo = level1, limiteFruta = 14, murosInternos = true) {
 	
-	override method agregandoMuros() {
-		(5 .. ancho-5).forEach({ i => posiciones1.add(new Position(x=i, y=3)) })
-		(5 .. ancho-5).forEach({ i => posiciones1.add(new Position(x=i, y=alto-5)) })
-		self.dibujar(posiciones1)
-	}
-		
 }
 
-object nivel3 inherits Nivel(anterior = nivel2, siguiente = null, titulo = level2, limiteFruta = 8, imagenMuro = "rocasV2.png") {
-	override method iniciar() {
-		game.addVisual(underground)
-		super()
-	}
-}
-
-object nivel4 inherits Nivel(anterior = nivel3, siguiente = null, titulo = level3, limiteFruta = 11, imagenMuro = "rocasV2.png") {
-	override method iniciar() {
-		game.clear()
-		game.addVisual(underground)
-		super()
-	}
+object nivel3 inherits Nivel(anterior = nivel2, siguiente = null, background = underground, titulo = level2, limiteFruta = 17, imagenMuro = "rocas.png", murosInternos = true) {
 	
-	/*override method agregandoMuros() {
-		(5 .. ancho-5).forEach({ i => posiciones1.add(new Position(x=i, y=3)) })
-		(5 .. ancho-5).forEach({ i => posiciones1.add(new Position(x=i, y=alto-5)) })
-		self.dibujar(posiciones1)
-	} */
 }
 
-object nivel5 inherits Nivel(anterior = nivel4, siguiente = null, titulo = level3, limiteFruta = 15, imagenMuro = "arbusto.png") {
-	override method iniciar() {
-		game.clear()
-		game.addVisual(grass)
-		super()
-	}
-}
-
-object nivel6 inherits Nivel(anterior = nivel5, siguiente = null, titulo = level3, limiteFruta = 18, imagenMuro = "arbusto.png") {
-	override method iniciar() {
-		game.addVisual(grass)
-		serpiente.reiniciar()
-		self.dibujarBordes()
-		game.addVisual(titulo)
-		game.addVisual(nest)
-	}
-}
 

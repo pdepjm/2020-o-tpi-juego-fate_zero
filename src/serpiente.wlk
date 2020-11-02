@@ -58,7 +58,7 @@ object serpiente {
 			direccion = unaDireccion
 		}
 	}
-	method nuevaPosicionAAvanzar() = direccion.siguientePosicion()
+	method nuevaPosicionAAvanzar() = direccion.siguientePosicion(cabezaSnake.position())
 	
 	method agregarParteACuerpo() {
 		const parte = new CuerpoSnake(anterior = cuerpo.last(), siguiente = null, image = cuerpo.last().image(), position = cuerpo.last().posicionPrevia(), posicionPrevia = null)
@@ -94,8 +94,11 @@ object serpiente {
 		cuerpo.forEach( {unaParte => 
 			if(cuerpo.size() > 2){
 				cuerpo.remove(cuerpo.last())
+				cuerpo.last().siguiente(null)
 			}
 		})
+		
+		self.volverAColorOriginal()
 		
 		direccion = derecha
 		
@@ -103,11 +106,42 @@ object serpiente {
 		cabezaSnake.posicionPrevia(game.at(3,2))
 		cabezaSnake.image("cabeza-derecha.png")
 		
+		primeraParte.anterior(cabezaSnake)
 		primeraParte.position(game.at(3,2))
 		primeraParte.posicionPrevia(game.at(2,2))
 		primeraParte.image("cuerpo-horizontal.png")
 		
 		self.aparecer()
+	}
+	
+	
+	// CAMBIO DE COLORES
+	method volverAColorOriginal() {
+		arriba.volverAColorOriginal()
+		abajo.volverAColorOriginal()
+		izquierda.volverAColorOriginal()
+		derecha.volverAColorOriginal()
+	}
+	
+	method cambiarColorARojo() {
+		arriba.cambiarColorARojo()
+		abajo.cambiarColorARojo()
+		izquierda.cambiarColorARojo()
+		derecha.cambiarColorARojo()
+	}
+	
+	method cambiarColorAAzul() {
+		arriba.cambiarColorAAzul()
+		abajo.cambiarColorAAzul()
+		izquierda.cambiarColorAAzul()
+		derecha.cambiarColorAAzul()
+	}
+	
+	 method cambiarColorAVioleta() {
+		arriba.cambiarColorAVioleta()
+		abajo.cambiarColorAVioleta()
+		izquierda.cambiarColorAVioleta()
+		derecha.cambiarColorAVioleta()
 	}
 }
 

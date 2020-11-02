@@ -9,8 +9,6 @@ object snakeGame {
 	var property nivel = nivel1
 	var property jugando = false
 	var property perdio = false
-	var property pocionAzulActivada = false
-	var won = false
 	
 	method iniciar() {
 		self.configurarJuego()
@@ -36,28 +34,28 @@ object snakeGame {
 		
 		// TECLAS DE DIRECCION
 		keyboard.up().onPressDo({
-			if(not pocionAzulActivada){
+			if(not pocionRoja.activada()){
 				serpiente.direccionElegida(arriba)
 			}else {
 				serpiente.direccionElegida(abajo)
 			}
 		})
 		keyboard.down().onPressDo({
-			if(not pocionAzulActivada){
+			if(not pocionRoja.activada()){
 				serpiente.direccionElegida(abajo)
 			}else {
 				serpiente.direccionElegida(arriba)
 			}
 		})
 		keyboard.left().onPressDo({
-			if(not pocionAzulActivada){
+			if(not pocionRoja.activada()){
 				serpiente.direccionElegida(izquierda)
 			}else {
 				serpiente.direccionElegida(derecha)
 			}
 		})
 		keyboard.right().onPressDo({
-			if(not pocionAzulActivada){
+			if(not pocionRoja.activada()){
 				serpiente.direccionElegida(derecha)
 			}else {
 				serpiente.direccionElegida(izquierda)
@@ -65,14 +63,14 @@ object snakeGame {
 		})
 		
 		
-		// TECLAS ENTER, X Y Q
+		// TECLAS SPACE, ENTER, X Y Q
+		keyboard.space().onPressDo({ pociones.reaunudarJuego() })
 		keyboard.enter().onPressDo({ 
 			if(not jugando and not perdio)
 				nivel.empezarAJugar()
 		})
 		keyboard.x().onPressDo({ 
-			if((not jugando and perdio) or won){
-				won = false
+			if(not jugando and perdio){
 				nivel.reiniciarNivel()
 			}
 		})
@@ -92,6 +90,9 @@ object snakeGame {
 	}
 	
 	method pasarASiguienteNivel() {
+		serpiente.volverAColorOriginal()
+		pocionRoja.activada(false)
+		pociones.desaparecer()
 		nivel = nivel.siguiente()
 		if(nivel != null){
 			nivel.iniciar()
@@ -110,11 +111,10 @@ object snakeGame {
 		serpiente.detenerse()
 		self.reproducirSonido("win.wav")
 		game.addVisual(youWon)
-		won = true
 		self.over()
 	}
 	
 	method over() {
-		game.schedule(5000, {game.stop()})
+		game.schedule(3000, {game.stop()})
 	}
 }

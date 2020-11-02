@@ -12,21 +12,101 @@ class Direccion {
 
 
 object arriba inherits Direccion(imagenCabeza = "cabeza-arriba.png", imagenCuerpo = "cuerpo-vertical.png") {
-	method siguientePosicion() = cabezaSnake.position().up(1)
+	method siguientePosicion(unaPosicion) = unaPosicion.up(1)
 	method contraria() = abajo
+	
+	method cambiarColorARojo() {
+		imagenCabeza = "cabezaRoja-arriba.png"
+		imagenCuerpo = "cuerpoRojo-vertical.png"
+	}
+	
+	method cambiarColorAAzul() {
+		imagenCabeza = "cabezaAzul-arriba.png"
+		imagenCuerpo = "cuerpoAzul-vertical.png"
+	}
+	
+	method cambiarColorAVioleta() {
+		imagenCabeza = "cabezaVioleta-arriba.png"
+		imagenCuerpo = "cuerpoVioleta-vertical.png"
+	}
+	
+	method volverAColorOriginal() {
+		imagenCabeza = "cabeza-arriba.png"
+		imagenCuerpo = "cuerpo-vertical.png"
+	}
 }
 
 object abajo inherits Direccion(imagenCabeza = "cabeza-abajo.png", imagenCuerpo = "cuerpo-vertical.png") {
-	method siguientePosicion() = cabezaSnake.position().down(1)
+	method siguientePosicion(unaPosicion) = unaPosicion.down(1)
 	method contraria() = arriba
+	
+	method cambiarColorARojo() {
+		imagenCabeza = "cabezaRoja-abajo.png"
+		imagenCuerpo = "cuerpoRojo-vertical.png"
+	}
+	
+	method cambiarColorAAzul() {
+		imagenCabeza = "cabezaAzul-abajo.png"
+		imagenCuerpo = "cuerpoAzul-vertical.png"
+	}
+	
+	method cambiarColorAVioleta() {
+		imagenCabeza = "cabezaVioleta-abajo.png"
+		imagenCuerpo = "cuerpoVioleta-vertical.png"
+	}
+	
+	method volverAColorOriginal() {
+		imagenCabeza = "cabeza-abajo.png"
+		imagenCuerpo = "cuerpo-vertical.png"
+	}
 }
 
 object izquierda inherits Direccion(imagenCabeza = "cabeza-izquierda.png", imagenCuerpo = "cuerpo-horizontal.png") {
-	method siguientePosicion() = cabezaSnake.position().left(1)
+	method siguientePosicion(unaPosicion) = unaPosicion.left(1)
 	method contraria() = derecha
+	
+	method cambiarColorARojo() {
+		imagenCabeza = "cabezaRoja-izquierda.png"
+		imagenCuerpo = "cuerpoRojo-horizontal.png"
+	}
+	
+	method cambiarColorAAzul() {
+		imagenCabeza = "cabezaAzul-izquierda.png"
+		imagenCuerpo = "cuerpoAzul-horizontal.png"
+	}
+	
+	method cambiarColorAVioleta() {
+		imagenCabeza = "cabezaVioleta-izquierda.png"
+		imagenCuerpo = "cuerpoVioleta-horizontal.png"
+	}
+	
+	method volverAColorOriginal() {
+		imagenCabeza = "cabeza-izquierda.png"
+		imagenCuerpo = "cuerpo-horizontal.png"
+	}
 }
 
 object derecha inherits Direccion(imagenCabeza = "cabeza-derecha.png", imagenCuerpo = "cuerpo-horizontal.png") {
-	method siguientePosicion() = cabezaSnake.position().right(1)
+	method siguientePosicion(unaPosicion) = unaPosicion.right(1)
 	method contraria() = izquierda
+	
+	method cambiarColorARojo() {
+		imagenCabeza = "cabezaRoja-derecha.png"
+		imagenCuerpo = "cuerpoRojo-horizontal.png"
+	}
+	
+	method cambiarColorAAzul() {
+		imagenCabeza = "cabezaAzul-derecha.png"
+		imagenCuerpo = "cuerpoAzul-horizontal.png"
+	}
+	
+	method cambiarColorAVioleta() {
+		imagenCabeza = "cabezaVioleta-derecha.png"
+		imagenCuerpo = "cuerpoVioleta-horizontal.png"
+	}
+	
+	method volverAColorOriginal() {
+		imagenCabeza = "cabeza-derecha.png"
+		imagenCuerpo = "cuerpo-horizontal.png"
+	}
 }
