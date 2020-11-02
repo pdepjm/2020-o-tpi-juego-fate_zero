@@ -34,28 +34,28 @@ object snakeGame {
 		
 		// TECLAS DE DIRECCION
 		keyboard.up().onPressDo({
-			if(not pocionRoja.activada()){
+			if(not serpiente.estaLoca()){
 				serpiente.direccionElegida(arriba)
 			}else {
 				serpiente.direccionElegida(abajo)
 			}
 		})
 		keyboard.down().onPressDo({
-			if(not pocionRoja.activada()){
+			if(not serpiente.estaLoca()){
 				serpiente.direccionElegida(abajo)
 			}else {
 				serpiente.direccionElegida(arriba)
 			}
 		})
 		keyboard.left().onPressDo({
-			if(not pocionRoja.activada()){
+			if(not serpiente.estaLoca()){
 				serpiente.direccionElegida(izquierda)
 			}else {
 				serpiente.direccionElegida(derecha)
 			}
 		})
 		keyboard.right().onPressDo({
-			if(not pocionRoja.activada()){
+			if(not serpiente.estaLoca()){
 				serpiente.direccionElegida(derecha)
 			}else {
 				serpiente.direccionElegida(izquierda)

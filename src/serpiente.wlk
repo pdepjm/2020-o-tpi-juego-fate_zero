@@ -32,6 +32,7 @@ class CuerpoSnake {
 }
 
 object cabezaSnake inherits CuerpoSnake(anterior = null, siguiente = primeraParte, image = "cabeza-derecha.png", position = game.at(4,2), posicionPrevia = game.at(3,2)) {
+	
 	override method moverseA(nuevaPosicion) {
 		self.desplazarseA(nuevaPosicion)
 		serpiente.direccion().cabezaSegunDirecc()
@@ -50,6 +51,11 @@ object serpiente {
 	var cuerpo = [cabezaSnake, primeraParte]
 	var direccion = derecha
 	
+	var estaLoca = false
+	method estaLoca(estado){
+		estaLoca = estado
+	}
+	method estaLoca() = estaLoca
 	
 	method cuerpo() = cuerpo
 	method direccion() = direccion

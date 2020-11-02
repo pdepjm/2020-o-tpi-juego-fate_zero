@@ -130,11 +130,11 @@ class Pocion inherits ObjetoAleatorio {
 	
 	
 	method choqueConSnake() {
-		activada = true
+		serpiente.estaLoca(true)
 		game.removeVisual(self)
 		self.cambiarColorDeSnake()
 		serpiente.detenerse()
-		volverNormal = fruta.vecesComida() + 3
+		volverNormal = fruta.vecesComida()+3
 		
 		if(not pociones.aparecioDescrip()){
 			game.addVisual(descripPotions)
@@ -146,10 +146,11 @@ class Pocion inherits ObjetoAleatorio {
 	
 	method volverANormalidad() {
 		if(fruta.vecesComida() == volverNormal){
-			activada = false
+			serpiente.estaLoca(false)
 			serpiente.detenerse()
 			serpiente.volverAColorOriginal()
 			serpiente.comienzaAMoverse(200)
+			
 		}
 	}
 	
