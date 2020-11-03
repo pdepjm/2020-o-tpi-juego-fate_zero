@@ -91,7 +91,6 @@ object snakeGame {
 	
 	method pasarASiguienteNivel() {
 		serpiente.volverAColorOriginal()
-		pocionRoja.activada(false)
 		pociones.desaparecer()
 		nivel = nivel.siguiente()
 		if(nivel != null){

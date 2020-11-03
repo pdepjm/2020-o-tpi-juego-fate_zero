@@ -40,8 +40,8 @@ object fruta inherits ObjetoAleatorio(image = "manzana.png", position = game.at(
 				hoyo.posicionAleatoria(2)
 				game.addVisual(hoyo)
 			}else {
-				nest.posicionAleatoria(4)
-				game.addVisual(nest)
+				nido.posicionAleatoria(4)
+				game.addVisual(nido)
 			}
 			
 		}
@@ -62,7 +62,7 @@ object hoyo inherits ObjetoAleatorio(image = "hoyo.png", position = game.at(27,1
 	}
 }
 
-object nest inherits ObjetoAleatorio(image = "nest.png", position = game.at(15,1)) {
+object nido inherits ObjetoAleatorio(image = "nest.png", position = game.at(15,1)) {
 	
 	method choqueConSnake() {
 		snakeGame.win()
@@ -73,7 +73,7 @@ object nest inherits ObjetoAleatorio(image = "nest.png", position = game.at(15,1
 object pociones {
 	var property aparecioDescrip = false
 	var property velocidadPocion = 200
-	const conjunto = [pocionRoja,pocionVioleta,pocionAzul]
+	const conjunto = [pocionRoja,pocionAmarilla,pocionAzul]
 	
 	method generarEfectos(){
 		if(snakeGame.nivel().siguiente() != null){
@@ -95,11 +95,11 @@ object pociones {
 }
 
 
-class Pocion inherits ObjetoAleatorio {
+class Pocion inherits ObjetoAleatorio{
 	var property aparecerEn
-	var property activada = false
+	var property direccionesContrarias = false
 	var property velocidad = 200
-	var volverNormal
+	var volverANormal
 	
 	override method posicionAleatoria(_) {
 		const direcciones = [derecha,izquierda,arriba,abajo]
@@ -114,7 +114,8 @@ class Pocion inherits ObjetoAleatorio {
 	
 	
 	method aparecer() {
-		const iniciar = 0.max(fruta.limite() - aparecerEn)
+		const iniciar = 0.max(snakeGame.nivel().limiteFruta() - aparecerEn)
+		volverANormal = iniciar + 3
 		if(iniciar == fruta.vecesComida()){
 			self.posicionAleatoria(0)
 			game.addVisual(self)
@@ -130,11 +131,10 @@ class Pocion inherits ObjetoAleatorio {
 	
 	
 	method choqueConSnake() {
-		serpiente.estaLoca(true)
+		serpiente.estaLoca(direccionesContrarias)
 		game.removeVisual(self)
 		self.cambiarColorDeSnake()
 		serpiente.detenerse()
-		volverNormal = fruta.vecesComida()+3
 		
 		if(not pociones.aparecioDescrip()){
 			game.addVisual(descripPotions)
@@ -145,12 +145,11 @@ class Pocion inherits ObjetoAleatorio {
 	}
 	
 	method volverANormalidad() {
-		if(fruta.vecesComida() == volverNormal){
+		if(fruta.vecesComida() == volverANormal){
 			serpiente.estaLoca(false)
 			serpiente.detenerse()
 			serpiente.volverAColorOriginal()
 			serpiente.comienzaAMoverse(200)
-			
 		}
 	}
 	
@@ -158,7 +157,7 @@ class Pocion inherits ObjetoAleatorio {
 	
 }
 
-object pocionRoja inherits Pocion(image = "potion-red.png", position = game.at(14,9), aparecerEn = 3, velocidad = 280) {
+object pocionRoja inherits Pocion(image = "potion-red.png", position = game.at(14,9), aparecerEn = 4, velocidad = 280, direccionesContrarias = true) {
 	
 	// DIRECCIONES OPUESTAS
 	
@@ -169,16 +168,16 @@ object pocionRoja inherits Pocion(image = "potion-red.png", position = game.at(1
 }
 
 
-object pocionVioleta inherits Pocion(image = "potion-purple.png", position = game.at(14,8), aparecerEn = 5, velocidad = 100) {
+object pocionAmarilla inherits Pocion(image = "potion-yellow.png", position = game.at(14,8), aparecerEn = 6, velocidad = 100) {
 	
 	// RAPIDO
 	
 	override method cambiarColorDeSnake() {
-		serpiente.cambiarColorAVioleta()
+		serpiente.cambiarColorAAmarillo()
 	}
 }
 
-object pocionAzul inherits Pocion(image = "potion-blue.png", position = game.at(14,7), aparecerEn = 6, velocidad = 330) {
+object pocionAzul inherits Pocion(image = "potion-blue.png", position = game.at(14,7), aparecerEn = 7, velocidad = 330) {
 	
 	// LENTO
 	

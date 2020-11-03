@@ -25,9 +25,9 @@ object arriba inherits Direccion(imagenCabeza = "cabeza-arriba.png", imagenCuerp
 		imagenCuerpo = "cuerpoAzul-vertical.png"
 	}
 	
-	method cambiarColorAVioleta() {
-		imagenCabeza = "cabezaVioleta-arriba.png"
-		imagenCuerpo = "cuerpoVioleta-vertical.png"
+	method cambiarColorAAmarillo() {
+		imagenCabeza = "cabezaAmarilla-arriba.png"
+		imagenCuerpo = "cuerpoAmarillo-vertical.png"
 	}
 	
 	method volverAColorOriginal() {
@@ -50,9 +50,9 @@ object abajo inherits Direccion(imagenCabeza = "cabeza-abajo.png", imagenCuerpo 
 		imagenCuerpo = "cuerpoAzul-vertical.png"
 	}
 	
-	method cambiarColorAVioleta() {
-		imagenCabeza = "cabezaVioleta-abajo.png"
-		imagenCuerpo = "cuerpoVioleta-vertical.png"
+	method cambiarColorAAmarillo() {
+		imagenCabeza = "cabezaAmarilla-abajo.png"
+		imagenCuerpo = "cuerpoAmarillo-vertical.png"
 	}
 	
 	method volverAColorOriginal() {
@@ -75,9 +75,9 @@ object izquierda inherits Direccion(imagenCabeza = "cabeza-izquierda.png", image
 		imagenCuerpo = "cuerpoAzul-horizontal.png"
 	}
 	
-	method cambiarColorAVioleta() {
-		imagenCabeza = "cabezaVioleta-izquierda.png"
-		imagenCuerpo = "cuerpoVioleta-horizontal.png"
+	method cambiarColorAAmarillo() {
+		imagenCabeza = "cabezaAmarilla-izquierda.png"
+		imagenCuerpo = "cuerpoAmarillo-horizontal.png"
 	}
 	
 	method volverAColorOriginal() {
@@ -100,9 +100,9 @@ object derecha inherits Direccion(imagenCabeza = "cabeza-derecha.png", imagenCue
 		imagenCuerpo = "cuerpoAzul-horizontal.png"
 	}
 	
-	method cambiarColorAVioleta() {
-		imagenCabeza = "cabezaVioleta-derecha.png"
-		imagenCuerpo = "cuerpoVioleta-horizontal.png"
+	method cambiarColorAAmarillo() {
+		imagenCabeza = "cabezaAmarilla-derecha.png"
+		imagenCuerpo = "cuerpoAmarillo-horizontal.png"
 	}
 	
 	method volverAColorOriginal() {

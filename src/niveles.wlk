@@ -82,14 +82,13 @@ class Nivel {
 		serpiente.comienzaAMoverse(200)
 		snakeGame.jugando(true)
 		snakeGame.perdio(false)
-		pocionRoja.activada(false)
 		if(not game.hasVisual(hoyo)){
 			self.reiniciarConteoFruta()
 		}
 	}
 	
 	method reiniciarConteoFruta() {
-		if(anterior.limiteFruta() == null){
+		if(anterior == null){
 			fruta.vecesComida(0)
 		}else {
 			fruta.vecesComida(anterior.limiteFruta())
@@ -98,16 +97,16 @@ class Nivel {
 }
 
 
-object nivel1 inherits Nivel(anterior = null, siguiente = nivel2, titulo = start, limiteFruta = 7) {
+object nivel1 inherits Nivel(anterior = null, siguiente = nivel2, titulo = start, limiteFruta = 10) {
 	
 } 
 
 
-object nivel2 inherits Nivel(anterior = nivel1, siguiente = nivel3, titulo = level1, limiteFruta = 14, murosInternos = true) {
+object nivel2 inherits Nivel(anterior = nivel1, siguiente = nivel3, titulo = level1, limiteFruta = 17, murosInternos = true) {
 	
 }
 
-object nivel3 inherits Nivel(anterior = nivel2, siguiente = null, background = underground, titulo = level2, limiteFruta = 17, imagenMuro = "rocas.png", murosInternos = true) {
+object nivel3 inherits Nivel(anterior = nivel2, siguiente = null, background = underground, titulo = level2, limiteFruta = 20, imagenMuro = "rocas.png", murosInternos = true) {
 	
 }
 

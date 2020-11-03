@@ -51,11 +51,7 @@ object serpiente {
 	var cuerpo = [cabezaSnake, primeraParte]
 	var direccion = derecha
 	
-	var estaLoca = false
-	method estaLoca(estado){
-		estaLoca = estado
-	}
-	method estaLoca() = estaLoca
+	var property estaLoca = false
 	
 	method cuerpo() = cuerpo
 	method direccion() = direccion
@@ -96,6 +92,7 @@ object serpiente {
 	
 	method reiniciar() {
 		self.desaparecer()
+		estaLoca = false
 		
 		cuerpo.forEach( {unaParte => 
 			if(cuerpo.size() > 2){
@@ -143,11 +140,11 @@ object serpiente {
 		derecha.cambiarColorAAzul()
 	}
 	
-	 method cambiarColorAVioleta() {
-		arriba.cambiarColorAVioleta()
-		abajo.cambiarColorAVioleta()
-		izquierda.cambiarColorAVioleta()
-		derecha.cambiarColorAVioleta()
+	 method cambiarColorAAmarillo() {
+		arriba.cambiarColorAAmarillo()
+		abajo.cambiarColorAAmarillo()
+		izquierda.cambiarColorAAmarillo()
+		derecha.cambiarColorAAmarillo()
 	}
 }
 
