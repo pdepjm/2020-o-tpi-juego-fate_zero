@@ -71,6 +71,7 @@ object nido inherits ObjetoAleatorio(image = "nest.png", position = game.at(15,1
 
 
 object pociones {
+	var property volverANormal = 20
 	var property aparecioDescrip = false
 	var property velocidadPocion = 200
 	const conjunto = [pocionRoja,pocionAmarilla,pocionAzul]
@@ -96,10 +97,9 @@ object pociones {
 
 
 class Pocion inherits ObjetoAleatorio{
-	var property aparecerEn
+	var property aparecerEn = 5
 	var property direccionesContrarias = false
 	var property velocidad = 200
-	var volverANormal
 	
 	override method posicionAleatoria(_) {
 		const direcciones = [derecha,izquierda,arriba,abajo]
@@ -115,13 +115,12 @@ class Pocion inherits ObjetoAleatorio{
 	
 	method aparecer() {
 		const iniciar = 0.max(snakeGame.nivel().limiteFruta() - aparecerEn)
-		volverANormal = iniciar + 3
 		if(iniciar == fruta.vecesComida()){
 			self.posicionAleatoria(0)
 			game.addVisual(self)
 		}
-		
 	}
+	
 	
 	method desaparecer() {
 		if(game.hasVisual(self)) {
@@ -131,6 +130,7 @@ class Pocion inherits ObjetoAleatorio{
 	
 	
 	method choqueConSnake() {
+		pociones.volverANormal(fruta.vecesComida() + 3)
 		serpiente.estaLoca(direccionesContrarias)
 		game.removeVisual(self)
 		self.cambiarColorDeSnake()
@@ -145,7 +145,7 @@ class Pocion inherits ObjetoAleatorio{
 	}
 	
 	method volverANormalidad() {
-		if(fruta.vecesComida() == volverANormal){
+		if(fruta.vecesComida() == pociones.volverANormal()){
 			serpiente.estaLoca(false)
 			serpiente.detenerse()
 			serpiente.volverAColorOriginal()
@@ -168,7 +168,7 @@ object pocionRoja inherits Pocion(image = "potion-red.png", position = game.at(1
 }
 
 
-object pocionAmarilla inherits Pocion(image = "potion-yellow.png", position = game.at(14,8), aparecerEn = 6, velocidad = 100) {
+object pocionAmarilla inherits Pocion(image = "potion-yellow.png", position = game.at(14,8), aparecerEn = 5, velocidad = 100) {
 	
 	// RAPIDO
 	
@@ -177,7 +177,7 @@ object pocionAmarilla inherits Pocion(image = "potion-yellow.png", position = ga
 	}
 }
 
-object pocionAzul inherits Pocion(image = "potion-blue.png", position = game.at(14,7), aparecerEn = 7, velocidad = 330) {
+object pocionAzul inherits Pocion(image = "potion-blue.png", position = game.at(14,7), aparecerEn = 6, velocidad = 330) {
 	
 	// LENTO
 	
