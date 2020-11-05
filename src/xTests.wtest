@@ -37,6 +37,7 @@ test "pierde si choca con el muro"{
 	game.addVisualCharacter(muro)
 	muro.choqueConSnake()
 	
+	
 	assert.that(snakeGame.perdio())
 	
 }

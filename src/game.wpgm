@@ -5,5 +5,7 @@ import direcciones.*
 import niveles.*
 
 program game {
+	
 	snakeGame.iniciar()
+	
 }
