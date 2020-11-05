@@ -29,6 +29,7 @@ class CuerpoSnake {
 	method choqueConSnake() {
 		snakeGame.lost()
 	}
+	
 }
 
 object cabezaSnake inherits CuerpoSnake(anterior = null, siguiente = primeraParte, image = "cabeza-derecha.png", position = game.at(4,2), posicionPrevia = game.at(3,2)) {
@@ -50,11 +51,13 @@ object primeraParte inherits CuerpoSnake(anterior = cabezaSnake, siguiente = nul
 object serpiente {
 	var cuerpo = [cabezaSnake, primeraParte]
 	var direccion = derecha
+	var miVelocidad 
 	
 	var property estaLoca = false
 	
 	method cuerpo() = cuerpo
 	method direccion() = direccion
+	
 	method direccionElegida(unaDireccion) { 
 		if(unaDireccion != direccion.contraria()){
 			direccion = unaDireccion
@@ -70,7 +73,9 @@ object serpiente {
 	}
 	
 	method comienzaAMoverse(velocidad) {
+		miVelocidad =velocidad
 		game.onTick(velocidad, "movimientoSnake", { cabezaSnake.moverseA(self.nuevaPosicionAAvanzar()) })
+		
 	}
 	
 	method detenerse() {
@@ -146,6 +151,9 @@ object serpiente {
 		izquierda.cambiarColorAAmarillo()
 		derecha.cambiarColorAAmarillo()
 	}
+	
+	method esVeloz() = miVelocidad < 200
+	method velocidad() = miVelocidad
 }
 
 

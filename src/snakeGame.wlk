@@ -98,6 +98,8 @@ object snakeGame {
 		}
 	}
 	
+	method nivel() = nivel
+	
 	method lost() {
 		serpiente.detenerse()
 		self.reproducirSonido("lose.wav")
