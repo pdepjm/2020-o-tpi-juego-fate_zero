@@ -101,6 +101,7 @@ object serpiente {
 	}
 	
 	method reiniciar() {
+		
 		self.desaparecer()
 		self.cambio(normal)
 		
