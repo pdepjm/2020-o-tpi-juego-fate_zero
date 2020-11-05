@@ -26,7 +26,7 @@ object snakeGame {
 	}
 	
 	method agregarPersonajes() {
-		serpiente.inicializar()
+		serpiente.aparecer()
 		nivel.iniciar()
 	}
 	

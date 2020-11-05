@@ -100,11 +100,6 @@ object serpiente {
 		cuerpo.forEach( {unaParte => game.addVisual(unaParte)} )
 	}
 	
-	method inicializar() {
-		game.addVisual(cabezaSnake)
-		game.addVisual(primeraParte)
-	}
-	
 	method reiniciar() {
 		self.desaparecer()
 		self.cambio(normal)
