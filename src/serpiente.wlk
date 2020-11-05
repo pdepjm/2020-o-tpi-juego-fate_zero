@@ -70,7 +70,7 @@ object serpiente {
 		direccion = estado.direccion(unaDireccion)
 	}
 	
-	method cambio(esta){
+	method cambiarEstado(esta){
 		estado = esta
 	}
 	method nuevaPosicionAAvanzar() = direccion.siguientePosicion(cabezaSnake.position())
@@ -103,7 +103,7 @@ object serpiente {
 	method reiniciar() {
 		
 		self.desaparecer()
-		self.cambio(normal)
+		self.cambiarEstado(normal)
 		
 		cuerpo.forEach( {unaParte => 
 			if(cuerpo.size() > 2){

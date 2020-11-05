@@ -146,7 +146,7 @@ class Pocion inherits ObjetoAleatorio{
 	
 	method volverANormalidad() {
 		if(fruta.vecesComida() == pociones.volverANormal()){
-			serpiente.cambio(normal)
+			serpiente.cambiarEstado(normal)
 			serpiente.detenerse()
 			serpiente.volverAColorOriginal()
 			serpiente.comienzaAMoverse(200)
@@ -166,7 +166,7 @@ object pocionRoja inherits Pocion(image = "potion-red.png", position = game.at(1
 	}
 	override method choqueConSnake() {
 		super()
-		serpiente.cambio(locura)
+		serpiente.cambiarEstado(locura)
 	}
 }
 
