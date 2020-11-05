@@ -46,22 +46,32 @@ object primeraParte inherits CuerpoSnake(anterior = cabezaSnake, siguiente = nul
 		serpiente.direccion().cuerpoSegunDirecc(self)
 	}
 }
-
+object locura{
+	
+	method direccion(unaDireccion) = unaDireccion.contraria()
+}
+object normal{
+	
+	method direccion(unaDireccion) = unaDireccion
+	
+}
 
 object serpiente {
 	var cuerpo = [cabezaSnake, primeraParte]
 	var direccion = derecha
 	var miVelocidad 
 	
-	var property estaLoca = false
+	var property estado = normal //o locura
 	
 	method cuerpo() = cuerpo
 	method direccion() = direccion
 	
 	method direccionElegida(unaDireccion) { 
-		if(unaDireccion != direccion.contraria()){
-			direccion = unaDireccion
-		}
+		direccion = estado.direccion(unaDireccion)
+	}
+	
+	method cambio(esta){
+		estado = esta
 	}
 	method nuevaPosicionAAvanzar() = direccion.siguientePosicion(cabezaSnake.position())
 	
@@ -97,7 +107,7 @@ object serpiente {
 	
 	method reiniciar() {
 		self.desaparecer()
-		estaLoca = false
+		self.cambio(normal)
 		
 		cuerpo.forEach( {unaParte => 
 			if(cuerpo.size() > 2){

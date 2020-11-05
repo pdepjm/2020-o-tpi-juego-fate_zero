@@ -36,6 +36,7 @@ object fruta inherits ObjetoAleatorio(image = "manzana.png", position = game.at(
 		serpiente.agregarParteACuerpo()
 		if(vecesComida == limite){
 			game.removeVisual(self)
+			
 			if(snakeGame.nivel().siguiente() != null) {
 				hoyo.posicionAleatoria(2)
 				game.addVisual(hoyo)
@@ -131,7 +132,6 @@ class Pocion inherits ObjetoAleatorio{
 	
 	method choqueConSnake() {
 		pociones.volverANormal(fruta.vecesComida() + 3)
-		serpiente.estaLoca(direccionesContrarias)
 		game.removeVisual(self)
 		self.cambiarColorDeSnake()
 		serpiente.detenerse()
@@ -146,7 +146,7 @@ class Pocion inherits ObjetoAleatorio{
 	
 	method volverANormalidad() {
 		if(fruta.vecesComida() == pociones.volverANormal()){
-			serpiente.estaLoca(false)
+			serpiente.cambio(normal)
 			serpiente.detenerse()
 			serpiente.volverAColorOriginal()
 			serpiente.comienzaAMoverse(200)
@@ -164,7 +164,10 @@ object pocionRoja inherits Pocion(image = "potion-red.png", position = game.at(1
 	override method cambiarColorDeSnake() {
 		serpiente.cambiarColorARojo()
 	}
-	
+	override method choqueConSnake() {
+		super()
+		serpiente.cambio(locura)
+	}
 }
 
 

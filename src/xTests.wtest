@@ -51,7 +51,7 @@ test "si come posion roja inviente el sentido"{
 	
 	pocionRoja.choqueConSnake()
 	
-	assert.that(serpiente.estaLoca())
+	assert.equals(serpiente.estado(),locura)
 }
 
 }
