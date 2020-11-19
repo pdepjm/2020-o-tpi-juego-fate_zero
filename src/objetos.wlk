@@ -169,7 +169,7 @@ class Pocion inherits ObjetoAleatorio{
 		}
 	}
 	
-	method cambiarColorDeSnake() {	}
+	method cambiarColorDeSnake()
 	
 }
 
