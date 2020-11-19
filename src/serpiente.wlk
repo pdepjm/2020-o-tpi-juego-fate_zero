@@ -57,22 +57,20 @@ object normal{
 }
 
 object serpiente {
-	var cuerpo = [cabezaSnake, primeraParte]
+	const cuerpo = [cabezaSnake, primeraParte]
 	var direccion = derecha
 	var miVelocidad 
 	
-	var property estado = normal //o locura
+	var property estado = normal //puede ser normal o locura
 	
 	method cuerpo() = cuerpo
 	method direccion() = direccion
 	
-	method direccionElegida(unaDireccion) { 
-		direccion = estado.direccion(unaDireccion)
-	}
+
+	method cambiarEstado(nuevoEstado) { estado = nuevoEstado }
 	
-	method cambiarEstado(esta){
-		estado = esta
-	}
+	method direccionElegida(unaDireccion) { direccion = estado.direccion(unaDireccion) }
+	
 	method nuevaPosicionAAvanzar() = direccion.siguientePosicion(cabezaSnake.position())
 	
 	method agregarParteACuerpo() {
@@ -83,25 +81,18 @@ object serpiente {
 	}
 	
 	method comienzaAMoverse(velocidad) {
-		miVelocidad =velocidad
+		miVelocidad = velocidad
 		game.onTick(velocidad, "movimientoSnake", { cabezaSnake.moverseA(self.nuevaPosicionAAvanzar()) })
 		
 	}
 	
-	method detenerse() {
-		game.removeTickEvent("movimientoSnake")
-	}
+	method detenerse() { game.removeTickEvent("movimientoSnake") }
 	
-	method desaparecer() { 
-		cuerpo.forEach( {unaParte => game.removeVisual(unaParte)} )
-	}
+	method desaparecer() { cuerpo.forEach( {unaParte => game.removeVisual(unaParte)} ) }
 	
-	method aparecer() { 
-		cuerpo.forEach( {unaParte => game.addVisual(unaParte)} )
-	}
+	method aparecer() { cuerpo.forEach( {unaParte => game.addVisual(unaParte)} ) }
 	
 	method reiniciar() {
-		
 		self.desaparecer()
 		self.cambiarEstado(normal)
 		
@@ -157,9 +148,4 @@ object serpiente {
 		izquierda.cambiarColorAAmarillo()
 		derecha.cambiarColorAAmarillo()
 	}
-	
-	method esVeloz() = miVelocidad < 200
-	method velocidad() = miVelocidad
 }
-
-

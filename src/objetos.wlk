@@ -25,9 +25,10 @@ class ObjetoAleatorio {
 }
 
 
-object fruta inherits ObjetoAleatorio(image = "manzana.png", position = game.at(8, 8)) {
+object fruta inherits ObjetoAleatorio(image = "manzana.png", position = game.at(15,14)) {
 	var property vecesComida = 0
 	var property limite = 3
+	
 	
 	method choqueConSnake() {
 		snakeGame.reproducirSonido("eating-apple.wav")
@@ -50,6 +51,16 @@ object fruta inherits ObjetoAleatorio(image = "manzana.png", position = game.at(
 		pociones.generarEfectos()
 	}
 	
+	method reiniciarConteo() {
+		vecesComida = 0
+	}
+	
+	method inicializar(nuevoLimite) {
+		self.reiniciarConteo()
+		limite = nuevoLimite
+		self.posicionAleatoria(1)
+		game.addVisual(self)
+	}
 }
 
 object hoyo inherits ObjetoAleatorio(image = "hoyo.png", position = game.at(27,14)) {
@@ -107,8 +118,13 @@ class Pocion inherits ObjetoAleatorio{
 		const posTentativas = []
 		
 		direcciones.forEach({ unaDireccion => posTentativas.add(self.posicionTentativa(unaDireccion)) })
-		posTentativas.filter({ unaPosicion => self.puedoIrEn(unaPosicion) })
-		position = posTentativas.first()
+		position = self.posicionRandom(posTentativas)
+	}
+	
+	method posicionRandom(posiciones) {
+		posiciones.filter({ unaPosicion => self.puedoIrEn(unaPosicion) })
+		const pos = 0.randomUpTo(posiciones.size()-1).truncate(0)
+		return posiciones.get(pos)
 	}
 	
 	method posicionTentativa(unaDireccion) = unaDireccion.siguientePosicion(fruta.position())
@@ -135,7 +151,7 @@ class Pocion inherits ObjetoAleatorio{
 		game.removeVisual(self)
 		self.cambiarColorDeSnake()
 		serpiente.detenerse()
-		
+		serpiente.cambiarEstado(normal)
 		if(not pociones.aparecioDescrip()){
 			game.addVisual(descripPotions)
 			pociones.velocidadPocion(velocidad)

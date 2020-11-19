@@ -6,14 +6,12 @@ import titulosYfondos.*
 
 
 class Nivel {
-	const property anterior
 	const property siguiente
 	const property titulo
-	var property background = null
 	var property murosInternos = false
 	const property limiteFruta
 	const property imagenMuro = "muro.png"
-	var posMurosInternos = []
+	const posMurosInternos = []
 	
 	
 	
@@ -21,8 +19,8 @@ class Nivel {
 	const ancho = 32 //game.width()
     const alto = 18 //game.height()
     
-	var posCasillasLaterales = []
-	var posCasillasCentrales = []
+	const posCasillasLaterales = []
+	const posCasillasCentrales = []
 	
 	method generarBordes() {
 		(0 .. ancho-1).forEach({ i => posCasillasCentrales.add(new Position(x=i, y=0)) }) // borde abajo
@@ -34,7 +32,7 @@ class Nivel {
 	
 	method dibujar(posiciones){
 		posiciones.forEach({ unaPosicion => 
-			var casilla = new Muro(position = unaPosicion, image = imagenMuro)
+			const casilla = new Muro(position = unaPosicion, image = imagenMuro)
 			game.addVisual(casilla)
 		})
 	}
@@ -56,16 +54,10 @@ class Nivel {
 		
 	
 	method iniciar() {
-		if(background != null){
-			game.addVisual(background)
-		}
-		
 		serpiente.reiniciar()
 		self.dibujarBordes()
 		self.agregarMurosInternos(murosInternos)
-		fruta.limite(limiteFruta)
-		fruta.posicionAleatoria(1)
-		game.addVisual(fruta)
+		fruta.inicializar(limiteFruta)
 		game.addVisual(titulo)
 	}
 	
@@ -83,31 +75,26 @@ class Nivel {
 		snakeGame.jugando(true)
 		snakeGame.perdio(false)
 		if(not game.hasVisual(hoyo)){
-			self.reiniciarConteoFruta()
-		}
-	}
-	
-	method reiniciarConteoFruta() {
-		if(anterior == null){
-			fruta.vecesComida(0)
-		}else {
-			fruta.vecesComida(anterior.limiteFruta())
+			fruta.reiniciarConteo()
 		}
 	}
 }
 
 
-object nivel1 inherits Nivel(anterior = null, siguiente = nivel2, titulo = start, limiteFruta = 10) {
+object nivel1 inherits Nivel(siguiente = nivel2, titulo = start, limiteFruta = 10) {
 	
 } 
 
 
-object nivel2 inherits Nivel(anterior = nivel1, siguiente = nivel3, titulo = level1, limiteFruta = 17, murosInternos = true) {
+object nivel2 inherits Nivel(siguiente = nivel3, titulo = level1, limiteFruta = 7, murosInternos = true) {
 	
 }
 
-object nivel3 inherits Nivel(anterior = nivel2, siguiente = null, background = underground, titulo = level2, limiteFruta = 20, imagenMuro = "rocas.png", murosInternos = true) {
-	
+object nivel3 inherits Nivel(siguiente = null, titulo = level2, limiteFruta = 3, imagenMuro = "rocas.png", murosInternos = true) {
+	override method iniciar() {
+		game.addVisual(underground)
+		super()
+	}
 }
 
 
